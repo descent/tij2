@@ -1,0 +1,1118 @@
+\chapter{萬事萬物皆物件 \\
+Everything is an Object}
+
+
+雖然Java 奠基於C++之上，兩相比較，Java 卻是個更「純粹」的物件導向程式語言。
+C++和 Java 都是混合型程式語言 (hybrid language) 。但 Java
+的設計者認為這種混合特性在 Java 中不像在 C++中那麼重要。
+混合型程式語言提供多種程式設計風格； C++之所以為混合型語言，是為了回溯相容於 C。
+C++ 做為 C 語言的超集 (superset)，勢必將 C 語言中許多不適合出現於 C++
+的特性一併囊括進來。這些性質使 C++ 在某些方面顯得過於複雜。
+Java 程式語言在設計上，徹底假設使用者僅以物件導向模式來進行程式設計。
+這麼一來，你便得先轉換自己的思維模式，進入物件導向的世界，才能夠開始使用
+Java (除非你的思維模式早已是物件導向形式)。透過這個入門基本功夫，爾後再學習、
+再使用其他的OOP 語言，上手的速度就可以更快。本章之中，我們將看到 Java
+程式的基本組成，並學到一個十分重要的觀念：在 Java 程式中，萬事萬物皆物件
+(object)，即使 Java 程式本身，也是一個物件。
+\section[Reference 是操控物件之鑰錀]{Reference 是操控物件之鑰錀 \\
+You manipulate objects with references}
+每個程式語言都有其獨特的資料操作方式。有時候，程式員對於正在處理的資料，
+必須持續關注其型別 (type) 究竟為何。你究竟是直接操作物件，或是透過某種中介形式
+(例如 C 和 C++ 的指標)，因而必須以某種特殊語法來看待物件呢？
+這一切在\marginpar{\fbox{102}} Java 中都大大簡化了。
+所有事物都被視為物件，單一固定的語法便可通用各處。不過，
+雖然抽象概念上你可以把所有東西都「視為」物件，但用以操控物件的識別字，
+實際上卻只是其 ``reference'' (引用、參照、指引)
+而已\footnote{這裡或許會引發爭論。有些人認為「很明確地，這就是指標
+(pointer)」。但這種說法對底層實作方式進行了某種假設。事實上， Java 的
+reference 在語法上比較接近 C++ 的 reference。
+本書第一版中我發明了一個應用於此處的新用語 ``handle'' ，因為 C++ reference
+和 Java reference 相較之下，某些地方還是有著頗為重要的差異。我那時剛離開
+C++ 陣營，而且我不想對那些原本已經了解 C++的程式員帶來混淆，那些人應該會是
+Java 使用者的大宗。但是在此第二版中，我決定換回最被廣泛使用的 ``reference''
+一詞。那些從 C++ 陣營轉換過來的人們，理應更能妥善理解並運用這個詞彙，
+無礙地游走於兩個語言之間。儘管如此，還是有人不同意這個術語。
+我曾經讀過的某本書是這麼說的：「宣稱 Java 支援 pass by reference 的那些人，
+根本一派胡言！事實上是徹底的 pass by value」。該作者認為， Java
+的物件識別字實際上就是個 object reference，所以絕對沒有任何 pass by reference
+之情事，每一樣東西都是 pass by value。也許有人會在諸如此類的爭辯上咬文嚼字，
+但我想我的方法可以簡化觀念的釐清，而不傷害到任何東西。唔，
+那些精明得像律師的語言學專家也許會認為我在撒謊，
+但我認為我所提供的不過是適度抽象化的結果罷了。} 。物件和 reference 之間的關係，
+好比電視和遙控器之間的關係一樣。只要你手上握有遙控器，便可以控制電視。
+當某人想要改變頻道或是將音量關小一點時，你實際上操控的是遙控器，間接透過這個
+reference 來改變實物性質。如果你想在房間裡頭走來走去，同時保有對電視的控制，
+只要隨身帶著遙控器 (也就是reference)，不必揹著笨重的電視。
+
+是的，遙控器於電視機之外獨立存在。你可以擁有某個 reference，
+卻不見得要將它連接至某個物件。如果你想儲存某個字或某個句子，你可以產生一份
+String reference，像這樣：
+
+\begin{Verbatim}[frame=single]
+String s;
+\end{Verbatim}
+
+但由於這麼寫只會產生一個 reference，不會產生實際的物件，因此此刻將訊息傳送給 s，
+執行時期便會發生錯誤。這是因為 s 並未實際連接到任何實物身上
+(也就是沒有相對可控制的電視)。所以，比較安全的作法就是在每次產生
+reference 的同時便加以初始化：
+
+\begin{Verbatim}[frame=single]
+String s = "asdf";
+\end{Verbatim}
+
+上述程式碼用到了\marginpar{\fbox{103}}
+Java 的一個特性：透過雙引號將文字括起來，便可以對字串進行初始化。不過，
+這是一種比較特殊的初始化方式。通常你得使用更一般化的方式來對物件進行初始化。
+\section[所有物件都必須由你建立]{所有物件都必須由你建立 \\
+You must create all the objects}
+產生某個reference 之後，你多半會想把它連接到某個新產生的物件去。
+通常我們會透過關鍵字 new 來做。 new 的意思是「請給我一個新物件」。
+所以上述例子中，你也可以寫成：
+
+\begin{Verbatim}[frame=single]
+String s = new String("asdf");
+\end{Verbatim}
+
+這麼寫對 s 來說，不僅代表著「讓我成為一個新的 String」，也提供了用以產生 String
+的原始字串。 String 並非唯一的既存型別。Java 提供了多不勝數的現成型別。
+然而重要的是，你可以建立自定型別。事實上這是 Java 程式設計中最主要的一環。
+透過本章接下來的篇幅，你可以學習如何建立自定型別。
+\subsection{儲存在哪裡}
+程式執行時究竟如何放置物件？其記憶體佈局方式如何？如果能夠了解這一點，
+會帶來很大幫助。有六個地方可以存放資料：
+\begin{enumerate}
+\item 暫存器 (Registers)。這是速度最快的儲存場所，因為暫存器位於處理器內部，
+這一點和其他種類的儲存媒介都不一樣。不過，由於暫存器個數有限，
+所以編譯器會根據本身需求適當地配置暫存器來使用。作為一個程式員，
+你不僅無法直接碰觸暫存器，也沒辦法在程式裡頭感覺到暫存器的任何存在跡象。
+\item Stack(堆疊)，位於一般的 RAM (random-access memory，隨機存取記憶體)中。
+處理器經由其指標 (stack pointer)提供直接支援。當程式配置一塊新的記憶體時，
+stack 指標便往後移；釋放記憶\marginpar{\fbox{104}}體時，指標則往前移回。
+這種方式不僅很快，效率也高，速度僅次於暫存器。由於 Java 編譯器有責任產生「將
+stack 指標前後移動」 的程式碼，所以它必須能夠完全掌握它所編譯的程式中「存在
+stack 裡頭的所有資料的實際大小和存活時間」。如此一來便會限制程式的彈性。
+由於這個限制，儘管我們可以將物件的 reference 儲存於
+stack 內，但卻不能將一般的Java 物件也置於其上。
+\item Heap(堆積)。Heap 是一種通用性質的記憶體儲存空間(也存在於 RAM 中)，
+用來置放所有Java 物件。Heap 勝過 stack 之處在於，編譯器不需知道究竟得從
+heap 中配置多少空間，也不需知道從 heap 上配置的空間究竟需要存在多久。因此，自
+heap 配置儲存空間可以獲得高度的彈性。每當你需要產生物件，只需在程式碼中使用
+new，那麼當它執行的時候，便會自heap 配置空間。當然，你得為這樣的彈性付出代價：
+從heap 配置空間，比從stack 配置(假設你真的可以在 Java 中像C++一樣地自
+stack 產生物件的話)，所耗費的時間多了不少。
+\item 靜態儲存空間(Static storage)。這裡使用「靜態」一詞，指的是
+「在固定位置上」(也在RAM 裡頭)。靜態儲存空間存放著「程式執行期間」
+一直存在的資料。你可以使用關鍵字static，將某個物件內的特定成員設為靜態，但
+Java 物件本身絕無可能置於靜態儲存空間中。
+\item 常數儲存空間(Constant storage)。常數值常常會被直接置於程式碼裡頭。
+因為常數是不會改變的，所以也是安全的。有時候常數會和外界隔離開來， 
+所以也可以放到唯讀記憶體( read-only memory，ROM)中。
+\item Non-RAM 儲存空間。如果資料完全存活於程式之外，那麼即使程式不執行，
+資料也能夠繼續存在，脫離程式的控制。streamed objects
+(串流化物件)和 persistent objects(永續性物件)便是主要的兩個例子。在
+streamed objects 形式中，物件被轉換為一連串的 bytes。這些
+bytes 通常用來傳送到另一部機器。在
+persistent objects 的形式中，物件被儲存於磁碟，所以即使程式結束了，
+這些物件的狀態還能夠繼續保有。此類儲存空間的特點在於，
+它們能夠\marginpar{\fbox{105}}將物件轉換為可儲存於其他媒介的形式，
+並在必要的時候將所儲存的資料還原成可儲存於RAM 中的一般物件。
+Java 提供了所謂「輕量級永續性 (lightweight persistence)」，
+新版本有可能提供更完善的解決方案。
+\end{enumerate}
+\subsection{特例：基本型別 (primitive types)}
+在「物件型別」(object type)之外，還有一種型別(type)應該被特別對待。
+你可以把這類型別視為所謂的「基本型別(primitive types)」，
+它們會在接下來的程式設計過程中屢屢出現。這一類型別之所以應該受到特別待遇，
+因為如果透過 new 來產生這一類極小、極簡單的變數，會因
+「new 將物件置於heap 之上」而效率不彰。因此對於此類變數，Java 採取C/C++ 的方式，
+也就是不以new 配置其空間，而是產生一種所謂的 ``automatic'' 變數
+(不再是reference 形式)，來解決效率問題(譯註：這便混入了non-OO 語言性質)。
+此類變數直接存放資料值，並置於stack， 因此在空間的配置和釋放上，效率好很多。
+
+每一種基本型別所佔的空間大小，在Java 裡頭是確切不變的。
+它們的大小不會像大多數程式語言那樣「隨著機器的硬體架構而改變」。這是
+Java 程式具備高度可攜性的原因之一。
+
+\bigskip
+\begin{table}[htbp]
+\center
+\begin{tabular}{lllll}
+\toprule
+基本型別 & 大小 & 最小值 & 最大值 & 外覆型別\\
+\midrule
+boolean & - & - & - & Boolean\\
+\midrule
+char & 16-bit & Unicode 0 & Unicode $2^{16}-1$ & Character \\
+\midrule
+byte & 8-bit & -128 & +127 & Byte \\
+\midrule
+short & 16-bit & $-2^{15}$ & $+2^{15}-1$ & Short \\
+\midrule
+int & 32-bit & $-2^{31}$ & $+2^{31}-1$ & Integer \\
+\midrule
+long & 64-bit & $-2^{63}$ & $+2^{63}-1$ & Long \\
+\midrule
+float & 32-bit & IEEE754 & IEEE754 & Float \\
+\midrule
+double & 64-bit & IEEE754 & IEEE754 & Double\\
+\midrule
+void & - & - & - & Void\\
+\bottomrule
+\end{tabular}
+\caption{所有數值型別(numeric types)都帶有正負號。}
+\end{table}
+
+\textbf{boolean}\marginpar{\fbox{106}}
+型別的容量未有明確定義；其值僅能為常數值 true 或 false。
+
+基本型別有所謂的「外覆類別(wrapper classes)」。如果你想在
+heap 內產生用以代表該基本型別的非原始物件
+(nonprimitive object)，那麼，外覆類別便可派上用場。例如你可以這麼寫：
+\begin{Verbatim}[frame=single]
+char c = 'x';
+Character C = new Character(c);
+\end{Verbatim}
+
+或是這麼寫：
+\begin{Verbatim}[frame=single]
+Character C = new Character('x');
+\end{Verbatim}
+
+之所以要這麼寫，其原因得稍後章節才能說明清楚。
+\subsection{高精度數值 (High-precision numbers)}
+Java 提供了兩個用來進行高精度計算的classes ： BigInteger 和
+BigDecimal。雖然它們勉強可以視為外覆類別，但兩者都沒有對應的基本型別。
+
+不過，這兩個 classes 所提供的操作方法，和基本型別所能執行的十分相像。
+這句話的意思是，所有可在 int 或 float 身上做的事情，都可施行於
+BigInteger 和BigDecimal 身上，只不過必須以「函式叫用方式」取代基本型別的運算子
+(operators)罷了。這麼做會提高複雜度，所以運算速度會比較慢。是的，
+這裡打的算盤是：以速度換取精度。
+
+BigInteger 所提供的整數支援任意精度。
+也就是說你可以很精確地表示任意長度的整數數值，不會在運算過程中喪失任何資訊。
+
+BigDecimal 提供任意精度的定點數(fixed-point numbers)；
+在需要精確金融計算的場合裡，它便可以派上用場。(譯註：所謂定點數
+fixedpoint numbers，是指小數點位置固定，或稱小數位數固定數。
+對應的是所謂的浮點數 floating-point numbers。)
+
+如果想知道這兩個 classes 的建構式 (constructors) 及其呼叫法，
+請參閱你手邊的線上文件。
+
+\subsection{Java 中的陣列 (array)}\marginpar{\fbox{107}}
+幾乎所有程式語言都提供了陣列。在C/C++中，陣列的使用是一件危險的事情，
+因為這兩個語言的陣列其實就是一塊記憶體而已。
+如果某個程式存取了陣列區塊之外的位址，或在記憶體被初始化前便使用之
+(這都是程式設計裡頭再常見不過的錯誤)，便會導致不可預期的錯誤發生。
+
+Java 的主要目標之一是安全。許多不斷困擾 C/C++程式員的種種問題，
+Java 都不再重蹈覆轍。Java 保證陣列一定會被初始化，而且程式員對陣列的存取，
+無法逾越範圍。這種「對存取範圍的檢查」所付出的代價便是：
+每個陣列得額外多出一點點空間，並且得在執行時期對陣列索引值進行檢查。
+Java 認為，這麼做所帶來的安全性和生產力提升，是值得的。
+
+當你產生某個儲存物件的陣列時，真正產生的其實是個儲存 references 的陣列。
+此一陣列建立之後，其中的每一個 reference 皆會被自動設為某個特殊值。該值以關鍵字
+null 表示。當Java 看到null 值，便將這個 reference 視為「不指向任何物件」。
+使用任何reference 之前，你必須先將某個物件指派給它。如果你使用某個
+reference 而其值為null，便會在執行期發生錯誤。因此，陣列操作上的常犯錯誤，在
+Java 中均可避免。
+
+你當然也可以產生一個陣列，用來儲存基本型別。編譯器一樣保證初始化動作的必然進行：
+這一次它會將陣列所佔的記憶體全部清為零。
+
+稍後我們還會再討論陣列。
+
+\section{你再也不需要摧毀物件 \\
+You never need to destroy an object}
+大多數程式語言中，變數的壽命(lifetime)觀念，佔據程式設計工作中非常重要的一部份。
+變數可以存活多久？如果你認為應該摧毀某個物件，何時才是最佳時機？
+圍繞在變數壽命上的種種困惑，可能形成滋生臭蟲的溫床。本節將說明
+Java 如何大幅簡化這個議題：是的，它為你做掉了一切工作。
+
+\marginpar{\fbox{108}}
+\subsection{生存空間 (Scoping)}
+大多數程序式(procedural)語言都有所謂「生存空間(scope)」的概念。
+這個概念決定了某一範圍內的所有變數名稱的可視性(visibility)和壽命。在
+C、 C++ 、 Java 之中，生存空間由兩個成對大括號決定，例如：
+
+\begin{Verbatim}[frame=single]
+{
+ int x = 12;
+ /* only x available */
+ {
+ int q = 96;
+ /* both x & q available */
+ }
+ /* only x available */
+ /* q "out of scope" */
+}
+\end{Verbatim}
+生存空間內所定義的變數，都只能用於生存空間結束之前。
+程式縮排格式，可以讓Java 程式碼更易於閱讀。由於Java 是一種自由格式
+(free-form)的語言，所以不論空白、跳格、換行，都不會影響程式。
+記住，即使以下寫法在C/C++中合法，在Java 裡頭卻不能這麼做：
+\begin{Verbatim}[frame=single]
+{
+ int x = 12;
+ {
+ int x = 96; /* illegal */
+ }
+}
+\end{Verbatim}
+編譯器會認為變數 x 已經被定義過了。這種在
+C/C++中「將較大生存空間中的變數遮蔽起來」的能力，Java 是不提供的。因為
+Java 設計者認為，這麼做容易導致對程式的誤解和混淆。
+
+\subsection{物件的生存空間 \\
+Scope of objects}\marginpar{\fbox{109}}
+Java 物件所擁有的壽命，和基本型別是不一樣的。當你使用new 來產生一個
+Java 物件，即便離開了生存空間，該物件依然存在。因此如果你這麼寫：
+
+\begin{Verbatim}[frame=single]
+{
+ String s = new String("a string");
+} /* end of scope */
+\end{Verbatim}
+
+s 這個reference 將在生存空間之外消失無蹤。但是，s 先前所指的那個
+String 物件，仍然會繼續佔用記憶體。如果單看上面這段程式碼，無法存取該物件，
+因為唯一指向它的那個reference，已經離開了其生存空間。後繼章節中你會看到，
+在程式執行過程中， 「指向物件」的那些個
+references 是如何地被四處傳遞和複製。
+
+經由new 所產生的物件，會在你還需要用到它時，繼續存在。所以許多
+C++程式設計上的問題在Java 中便消失於無形了。在C++中，最困難的問題似乎肇因於，
+程式員不想獲得來自語言的幫助，藉以確保他自己在需要使用物件的時候，
+物件的確能夠供其使用。更重要的是，在C++裡頭，你得在用完物件之後，
+確保它們千真萬確地被摧毀掉。
+
+這麼一來便浮現了一個有趣的問題。倘若Java 讓這些物件繼續存在，
+究竟是什麼機制使這些物件不會毫無節制地佔用記憶體，進而搞垮你的程式呢？這正是
+C++裡頭可能發生的問題，也正是神奇之所在。Java 之中有一種所謂的「垃圾回收器
+(garbage collector)」機制，它會逐一檢視所有透過
+new 所產生的物件，並在這些物件不再被引用時(譯註：也就是不再有任何
+reference 指向它們時)，知道這一事實。然後，垃圾回收器便釋放這些物件的記憶體，
+提供他用。這代表你根本不用操心記憶體回收問題，
+只要關心物件的產生就好了。所有物件，在你不再需要它們的時候，都會自動消失。
+這麼一來便消除了所謂的「記憶體洩漏(memory leak)」問題。
+這個問題正是因為程式員忘了將記憶體釋放掉而引起的。
+
+\section{建立新的資料型別：class}\marginpar{\fbox{110}}
+如果一切都是物件，那麼究竟什麼東西用來決定某一類物件的外觀長相和行為舉措呢？
+換另一種方式說，究竟是什麼制定了物件的type 呢？你也許會預期有個關鍵字type，
+這才符合它的意義。不過，從歷史沿革來看，大多數物件導向程式語言都使用
+class 這個關鍵字來代表「我即將告訴你，
+此一新式物件的長相與外觀」。定義新的class 時，請在關鍵字class
+(由於出現太過頻繁，此後不再以粗體字表示)之後緊接著新型別的名稱，例如：
+
+\begin{Verbatim}[frame=single]
+class ATypeName { /* class body goes here */ }
+\end{Verbatim}
+
+這麼做便能制定新型別，讓你得以透過new 來產生此一類型物件：
+
+\begin{Verbatim}[frame=single]
+ATypeName a = new ATypeName();
+\end{Verbatim}
+
+AtypeName class 的主體部份只有一行註解(成對的/* */ 所含括的內容即為註解。
+本章稍後馬上會討論之)，所以你沒辦法透過它來做些什麼事情。
+事實上你得先為它定義一些函式(methods)，然後才能夠告訴它如何多做一點事
+(也就是說，你才能夠將有意義的訊息傳送給它)。
+\subsection{資料成員(fields)和函式(methods)}
+當你定義class 時(事實上在Java 裡頭你需要做的事情無非就是：定義
+classes、產生物件、將訊息發送給物件)，你可以將兩種成員放進去：資料成員
+(data members ， 有時稱為欄位， field) ， 以及成員函式
+(member functions)，後者通常稱為methods(譯註：本書將以「函式」稱之)。
+資料成員可以是任何類型的物件，只要你可以透過它的
+reference 來和它溝通就行。資料成員也可以是基本型別(也就是不具備
+reference 者)。如果資料成員是一個object reference，那麼你就得在某個名為建構式
+(constructor)的特殊函式中(第四章討論)，為該reference
+進行初始化動作，藉以將它連接到某個實際物件去(一如先前所述，以
+new 來執行這個動作)。如果資料成員是基本型別，你可以直接在class
+的定義處直接給定初值。一如你稍後即將看到，
+reference 其實也可以在定義處進行初始化。
+
+每一\marginpar{\fbox{111}}個物件都持有用來儲存資料成員的空間；
+不同的物件彼此之間並不共享資料成員。下面這個class 擁有一些資料成員：
+
+\begin{Verbatim}[frame=single]
+class DataOnly 
+{
+ int i;
+ float f;
+ boolean b;
+}
+\end{Verbatim}
+
+這樣的class 什麼也不能做。不過你還是可以為它產生物件：
+
+\begin{Verbatim}[frame=single]
+DataOnly d = new DataOnly();
+\end{Verbatim}
+
+你可以指定其資料成員的值，但首先你得知道如何取得(參考到)一個物件的成員。
+那就是在object reference 之後緊接著一個句點，然後再接成員名稱：
+
+\begin{Verbatim}[frame=single]
+objectReference.member
+\end{Verbatim}
+
+例如：
+
+\begin{Verbatim}[frame=single]
+d.i = 47;
+d.f = 1.1f;
+d.b = false;
+\end{Verbatim}
+
+當然啦，你想修改的資料也有可能位於物件所含之其他物件中。如果是這樣，
+只要用句點符號把它們連接起來就行了，像這樣：
+
+\begin{Verbatim}[frame=single]
+myPlane.leftTank.capacity = 100;
+\end{Verbatim}
+
+上述的DataOnly class 除了儲存資料之外，什麼事也不能做。
+因為它根本沒有任何成員函式(亦即methods)。如果想了解成員函式的運作方式，
+你得先了解所謂的引數(arguments)和回傳值(return values)。
+稍後對此二者將有簡短說明。
+\subsubsection{基本成員(primitive members)的預設值(default values)}
+當class 的某個成員屬於基本型別(primitive type)時，即使你沒有為它提供初值，
+Java 仍保證它有一個預設值。表 \ref{primitive} (page \pageref{primitive})
+列出各基本型別的預設值：
+
+\marginpar{\fbox{112}}
+
+\begin{table}[htbp]
+\center
+\begin{tabular}{ll}
+\toprule
+基本型別 & 預設值 \\
+\midrule
+boolean & false \\
+\midrule
+char & '$\backslash$u0000' (null) \\
+\midrule
+byte & (byte)0 \\
+\midrule
+short & (short)0 \\
+\midrule
+int & 0 \\
+\midrule
+long & 0L \\
+\midrule
+float & 0.0f \\
+\midrule
+double & 0.0d \\
+\bottomrule
+\end{tabular}
+\caption{基本型別預設值}\label{primitive}
+\end{table}
+
+千萬注意，只有當變數身份是「class 內的成員」時，Java 才保證為該變數提供初值。
+這能確保隸屬基本型別的那些資料成員，百分之百會有初值
+(這是Java 不同於C++的地方)，因而得以減少許多臭蟲發生機率。
+不過語言所提供的初值對你的程式而言，或許根本牛頭不對馬嘴，甚至可能不合法。
+所以最好還是養成習慣，明確為你的變數指定初值。
+
+上述的初值保證，無法套用於區域變數(也就是並非「某個class 內的成員」)
+上頭。因此如果在某個函式定義區內你這麼寫：
+
+\begin{Verbatim}[frame=single]
+int x;
+\end{Verbatim}
+
+x 便有可能是任意值(就和C/C++中一樣)，不會被自動設為零。使用x
+之前，你得給它一個適當值。如果忘了這麼做，Java 編譯器會在編譯時發出錯誤訊息，
+告訴你該變數可能尚未初始化。這是C++不會發生的事情。
+(許多C++編譯器會針對未初始化的變數給予警告，但Java 將這種情況視為一種錯誤)
+
+\section{函式(Methods), 引數(arguments), 回傳值(return values)}
+到目前為止，function(函式)這個術語用來描述某個具有名稱的子程序
+(subroutine)。Java 廣泛地使用method 一詞，
+表示「執行某些事情的\marginpar{\fbox{113}}方式」。
+如果你希望繼續使用function 一詞，也無妨，只不過是遣詞用字上的差異。從現在起，
+本書將採用method 而不採用function。(譯註： 雖然如此，但中譯本為求術語之突出，
+採用「函式」一詞表示method)
+Java 函式決定了某個物件究竟能夠接收什麼樣的訊息。你將在本節學到，
+定義一個函式其實是很簡單的。函式基本上包括： 名稱、引數
+(arguments)、回傳型別、主體。下面是最基本形式：
+
+\begin{Verbatim}[frame=single]
+returnType methodName( /* argument list */ ) 
+{
+ /* Method body */
+}
+\end{Verbatim}
+
+函式被呼叫後，其回傳值的型別就是所謂的「回傳型別」。呼叫者希望傳
+給函式的種種資訊，則化為引數列(argument list)中的型別和名稱。對
+class 而言，函式的「名稱加上引數列」組合，必須獨一無二，不能重複。
+(譯註：有些書籍很嚴謹區分參數parameters 和引數arguments 的不同，
+本書並不如此)
+
+Java 函式僅能做為class 的一部份。只有透過物件，而且它能夠執行某個函式，
+你才能呼叫該函式\footnote{稍後你會學習所謂 static method (靜態函式)，它們可透過
+class(而非物件)被呼叫。}。 如果你對著某個物件呼叫了它並不具備的函式，
+編譯時期就會得到錯誤訊息。如果想要呼叫某個物件的某個函式，
+只要指定物件名稱，緊接著句點符號，再接續函式名稱和引數列即可，例如
+objectName.methodName(arg1, arg2, arg3)。假設有個函式f()，
+並不接收任何引數，回傳型別為int。如果有個名為a 的物件，允許你呼叫它所擁有的
+f() 函式，那麼你可以這麼寫：
+
+\begin{Verbatim}[frame=single]
+int x = a.f();
+\end{Verbatim}
+
+其回傳值型別必須相容於x 的型別。
+
+這種「呼叫函式」的行為，稱為「發送訊息給物件」。上述例子中，a 是物件，
+f() 相當於訊息。物件導向程式設計常常被簡單地歸納為「將訊息發送給物件」的方式。
+
+\subsection{引數列(The argument list)}\marginpar{\fbox{114}}
+外界傳給函式的資訊，由引數列指定。就如你所想的一樣，這些資訊和
+Java 的其他資訊一樣，都以物件的形式出現。
+所以引數列中必須指定每一個想要傳入的物件的型別和名稱。
+Java 之中，所有傳遞物件的場合(包括現在所討論的這個)，傳遞的都是物件的
+reference\footnote{先前所提的那些「特殊」資料型別：boolean、char、byte、short、
+int、long、 float、double，都是這句話的例外。一般來說，傳遞物件，
+其實就是傳遞物件的 reference。}，其型別必須正確。
+如果引數為String，那麼你傳入的就必須是個 String 物件才行。
+
+假設有個函式，接受String 為其引數。底下是其定義。這份定義必須被置放於
+class 定義式中，才能夠被正確編譯：
+
+\begin{Verbatim}[frame=single]
+int storage(String s) 
+{
+ return s.length() * 2;
+}
+\end{Verbatim}
+
+這個函式告訴你，如果要儲存指定的String 物件，需動用多少bytes。為了支援
+Unicode 字元集，Java 字串的每個字元都是16 bits 或說兩個
+bytes。引數型別是String，名稱是s。當s 被傳入此一函式，
+它和其他物件就沒有什麼兩樣了(甚至你可以發送訊息給它)。本例呼叫了s 的
+length()，那是String 提供的眾多函式之一，會回傳字串中的字元數。
+
+你看到了，上述例子使用關鍵字return 做兩件事情。首先，它代表「離開這個函式」，
+意謂事情做完了。其次，如果執行過程中誕生了回傳值， 這個回傳值應該擺在
+return 之後。本例之中，回傳值係透過s.length() * 2 這個式子獲得。
+
+定義函式時，你可以決定任何你想要回傳的型別。但如果這個函式並不打算回傳任何東西，
+你應該將回傳型別指定為 void，例如：
+
+\begin{Verbatim}[frame=single]
+boolean flag() { return true; }
+float naturalLogBase() { return 2.718f; }
+void nothing() { return; }
+void nothing2() {}
+\end{Verbatim}
+
+\marginpar{\fbox{115}}
+
+當回傳型別為void 時，關鍵字return 就只是用來離開函式。
+我們不必等到執行至函式最末端才離開，可以在任意地點回返。
+但如果函式的回傳型別並非
+void，那麼不論自何處離開，編譯器都會要求你一定得回傳適當型別的回傳值。
+
+閱讀至此，你或許會覺得，程式看起來似乎像是許多「帶有函式」之物件的組合。
+這些函式可以接受其他物件作為引數，也可以發送訊息給其他物件。
+以上說法的確還有許多需要補充，不過接下來的章節中，
+我要先告訴你如何在函式中做判斷，以便執行更細膩的動作。對本章而言，
+「發送訊息」的討論已經夠了。
+\section{打造一個Java 程式}
+在看到你的第一個Java 程式之前，還有一些主題是你必須了解的。
+\subsection{名稱的可視性(Name visibility)}
+
+「名稱管理」對所有程式語言而言，都是個重要課題。
+如果你在程式的某個模組中使用了某個名稱，
+另一位程式員在同一程式的另一個模組中使用同樣的名稱，
+該如何區分二者才能使它們不牴觸呢？C 裡頭的這個問題格外嚴重，
+因為程式之中往往充滿許多難以管理的名稱。C++ classes(Java classes 的師法對象)
+將函式包裝於內，這麼一來就可以和其他classes 內的同名函式隔離，
+避免名稱衝突的問題。不過C++ 仍允許全域資料(global data)和全域函式
+(global functions)的存在，所以還是有可能發生命名衝突。為了解決這個問題，
+C++透過了幾個關鍵字，引入所謂的「命名空間(namesapces)」概念。
+
+Java 採用一種全新方法，避免上述所有問題。
+為了讓程式庫內的名稱不致於和其他名稱相混，Java 採用和Internet 域名
+(domain names)相似的指定詞，進一步規範所有名稱。事實上，Java 創設者希望你將
+Internet 域名反過來寫，確保所有名稱在這個世界上都是獨一無二的。
+我的域名是\marginpar{\fbox{116}}
+BruceEckel.com，所以我的一些奇奇怪怪的做為工具之用的程式庫，就命名為
+com.bruceeckel.utility.foibles。當你將域名反轉，
+其中的句點便用來代表子目錄的劃分。
+(譯註：例如com.bruceeckel.utility.foibles 便置於
+com/bruceeckel/utility/foibles 目錄下。在這裡，作者探討的是Java
+裡頭的package 命名方式，但未明示package 這個字眼，所以特此提醒讀者。)
+
+在Java 1.0 和1.1 中，域名最末的com、edu、org、net 等等，按慣例都應該大寫，
+所以上例應該寫成： COM.bruceeckel.utility.foibles。Java 2 發展到半途的時候，
+發現這麼做會引起一些問題，因此，現在package 的整個名稱都是小寫了。
+
+上述機制意謂你的檔案都能夠存在於它們自有的命名空間中(譯註：每個
+package 都是一個獨一無二的命名空間)，而同一個檔案中的每個
+class 都得有個獨一無二的識別名稱。這麼一來就不需特意學習其他語言的什麼功能，
+便能夠解決這個問題。是的，程式語言自動為你處理掉這個問題。
+\subsection{使用其他組件(components)}
+當你想在程式中使用事先定義好的classes 時，編譯器必須知道它們的位置。當然，
+它們可能位於同一個原始碼檔案中，那就可以直接在這個檔案中呼叫。這種情形下，
+你只管使用這個class - 即使它的定義在檔案稍後才出現。
+Java 解決了「前置參考(forward referencing)」問題，所以你完全不必傷腦筋。
+
+如果classes 位於其他檔案之中，又該如何？
+你可能會認為編譯器應該有足夠的聰明找到那個位置，可惜事實不然。
+想像你正要使用某個具有特定名稱的 class，但它卻有好幾份定義
+(假設各不相同)。或者更糟的是，想像你正在撰寫某個程式，開發過程中你將某個新
+class 加到程式庫中，因而和某個舊有的class 發生了命名衝突。
+
+為了解決這種問題，你得消除所有可能發生的混淆情形。關鍵字import 可以明確告訴
+Java 編譯器，你想使用的class 究竟是哪一個，以便消除所有可能發生的混淆。
+import 能夠告訴編譯器引入哪一個package - 那是由classes 組成的一個程式庫。
+(在其他語言中，程式庫不僅內含\marginpar{\fbox{117}}
+classes，也可以內含函式和資料，但是在Java 裡頭，所有程式碼都必須寫在
+class 內。)
+
+大部份時候，你會使用Java 標準程式庫內的種種組件。
+這個程式庫是和編譯器附在一起的。使用這些組件時，你並不需要寫上一長串的反轉域名。
+舉個例子，你只要這麼寫就行了：
+
+\begin{Verbatim}[frame=single]
+import java.util.ArrayList;
+\end{Verbatim}
+
+這便是告訴編譯器說，你想使用Java 的ArrayList class。如果你還想使用
+util 內的其他classes，又不想逐一宣告，那就只要以* 號代表即可：
+
+\begin{Verbatim}[frame=single]
+import java.util.*;
+\end{Verbatim}
+
+一次宣告一大群classes，比個別匯入(import)一個個classes，常見且方便多了。
+(譯註：雖然比較方便，卻會影響編譯時間)
+\subsection{關鍵字 static}
+一般而言，當你設計某個class 時，其實就是在描述其物件的外觀長相及行為舉措。
+除非以new 來產生物件，否則並不存在任何實質的物件。產生物件之際，
+儲存空間才會配置出來，其函式才可供外界使用。
+
+但是有兩種情況，是上述方式所無法解決的。第一種是，你希望不論產生了多少個物件，
+或不存在任何物件的情形下，那些特定資料的儲存空間都只有一份。第二種情況是，
+你希望某個函式不要和class object 綁在一起。
+透過關鍵字static，便可以處理這兩種情況。當你將某筆資料成員或某個函式宣告為
+static，它就不再被侷限於所屬的class object 上。所以，即使沒有產生任何
+class object，外界還是可以呼叫其static 函式，或是取用其
+static data。一般情形下，你得產生某個物件，再透過該物件取用其資料和函式。所以，
+non-static 資料/函式必須知道它們隸屬於哪一個物件，才有辦法運作。由於使用
+static 函式前並不需要先產生任何物件，所以在
+static 函式中不能「直接」取用non-static 資料/函式。如果只是單純地直接呼叫
+non-static 函式，而沒有指定某個物件，是行不通的，原因是
+non-static 資料/函式總是得和特定的物件綑綁在一起。
+
+某些物件導向程式語言，以\marginpar{\fbox{118}}
+class data 和class methods 兩個詞彙，代表那些不和特定物件有所關聯，
+「其存在只是為了class」的資料和函式。有時候 Java 相關文獻也會使用這兩個詞彙。
+
+只要將關鍵字static 擺在資料成員或函式的定義前，就可以使它們成為靜態。
+以下便可以產生一筆static 資料成員，並將它初始化：
+
+\begin{Verbatim}[frame=single]
+class StaticTest 
+{
+ static int i = 47;
+}
+\end{Verbatim}
+
+現在，即使你產生兩個StaticTest 物件，StaticTest.i 仍然只有一份。
+產生出來的那兩個物件會共用同一個 i。再看這個：
+
+\begin{Verbatim}[frame=single]
+StaticTest st1 = new StaticTest();
+StaticTest st2 = new StaticTest();
+\end{Verbatim}
+
+此時st1.i 和st2.i 的值一樣，都是47，因為它們都指向同一塊記憶體。
+
+有兩種方法可以取用宣告為static 的變數。一如上例，你可以透過某個物件來定址，例如
+st2.i。也可以直接經由其class 名稱完成參考動作 - 這種作法對
+non-static 成員是行不通的(但對於static 成員卻比較好，
+因為這種寫法可以更強調所參考的對象是個static 成員)。
+
+\begin{Verbatim}[frame=single]
+StaticTest.i++;
+\end{Verbatim}
+
+++運算子會將變數值累加1。經過這個動作，st1.i 和st2.i 的值都是48。
+
+相同的模式可以推廣到static 函式。你可以透過物件來取用某個static 函式，
+和取用其他普通的函式沒什麼兩樣。你也可以經由以下特殊語法取用之：
+ClassName.method()。定義static 函式的方式和定義static data member
+的方式十分類似：
+
+\begin{Verbatim}[frame=single]
+class StaticFun 
+{
+ static void incr() { StaticTest.i++; }
+}
+\end{Verbatim}
+
+你看到了，StaticFun incr() 將static 資料成員i 的值累加一。你可以用一般方式，
+透過物件來呼叫incr()：
+
+\begin{Verbatim}[frame=single]
+StaticFun sf = new StaticFun();
+sf.incr();
+\end{Verbatim}
+\marginpar{\fbox{119}}
+
+但由於incr() 是static 函式，所以你也可以直接透過class 加以呼叫：
+\begin{Verbatim}[frame=single]
+StaticFun.incr();
+\end{Verbatim}
+
+某個資料成員被宣告為static 之後，勢必會改變其建立方式(因為static
+資料成員對每個class 而言都只有一份，而non-static 資料成員則是每個物件各有一份)。
+對static 函式來說，差別反而沒那麼大。Static 函式的最重要用途之一，
+就是讓你可以在不建立任何物件的情形下，還可以呼叫之。這一點很重要，
+稍後我們會看到，我們得透過main() 的定義，做為程式的執行起點。
+
+就像任何函式一樣，static 函式可以產生或使用其型別所衍生的具名物件，所以
+static 函式常常被拿來當作「牧羊人」的角色，
+負責看管眾多隸屬同一型別的一整群物件。
+\section{初試啼聲你的第一個Java 程式}
+終於要寫一個真正的程式了\footnote{某些開發環境
+(programming environments)會將程式輸出畫面快速捲過，在你看不清楚任何東西之前，
+就什麼都沒有了。你可以將下列一小段程式碼加到
+main()的最末端，使輸出結果在程式結束前暫停一下：
+
+%\begin{Verbatim}[frame=single]
+\noindent
+try \\
+$\{$\\
+ System.in.read();\\
+$\}$\\
+catch(Exception e) $\{$ $\}$ \\
+%\end{Verbatim}
+
+這麼做便能凍結輸出結果，直到按下 ``Enter'' 或其他鍵。以上程式碼所用到的觀念，
+一直要到本書後段才會出場。所以此刻你可能無法了解它的作為，
+但至少它能派上用場。}。此程式一開始會印出一個字串，然後利用
+Java 標準程式庫中的Date class 印出日期。請注意其中運用了一種新的註解方式，
+雙斜線 //，在它之後出現的所有直到行末為止的內容，都會被編譯器視為註解。
+
+\begin{Verbatim}[frame=single]
+// HelloDate.java
+import java.util.*;
+public class HelloDate 
+{
+ public static void main(String[] args) 
+ {
+  System.out.println("Hello, it's: ");
+  System.out.println(new Date());
+ }
+}
+\end{Verbatim}
+\marginpar{\fbox{120}}
+
+你得將import 敘述句置於每個程式檔的起始處，藉以將該檔案所需要的所有額外的
+classes 含括進來。請注意我說「額外的」，因為有一組
+classes 會被自動含括於每個Java 程式檔中，我說的是 java.lang。請開啟你的
+Web 瀏覽器，並檢閱Sun 的公開文件 (如果你尚未從 java.sun.com 下載這份文件，
+或尚未以其他方式安裝Java 文件的話，此其時矣)。你可以在各個
+packages 的列表上找到所有Java 標準程式庫。請點選
+java.lang，畫面上會出現一份列表，顯示出其中的所有classes。
+由於 java.lang 會被自動含括於每個Java 程式檔中，所以這個程式庫內的所有
+classes 都不需要做import 宣告，便可直接運用。不過 java.lang 列表中並沒有
+Date class，這表示你必須匯入(import)另一個程式庫才能夠使用它。如果你不知道某個
+class 位於哪一個程式庫內，或是如果你想同時瀏覽所有classes，你可以在
+Java 文件中選擇"Tree"，然後便可看到隨Java 而附的所有
+classes。請使用瀏覽器的 ``find'' 功能搜尋Date。如果你照著上述步驟，
+就可以看到這個class 列於 java.util.Date，現在你知道它屬於
+util 程式庫了。為了使用Date class，你可以寫 import java.util.* 將它括進來
+(譯註：或標明java.util.Date 也行)。
+
+現在回到最開始的地方，選擇 java.lang 和System，你會看到System class 有許多欄位。如果你再選擇out，就可以看到它其實是個static PrintStream 物件。因為它是靜態的，
+所以你不必做任何事情，out 物件便已存在，你只管使用便是。我們到底能對
+out 物件做什麼事，取決於其型別： PrintStream。Java 這份文件設計得很方便，
+你所看到的 PrintStream 是個超鏈結( hyperlink ) ， 只要點選它， 便可看到
+PrintStream 提供給外界呼叫的所有函式，數量相當多，本書稍後會加以討論。
+此刻我們只對println() 感興趣，它的實際作用對我們而言是：
+「印出我要你印在螢幕上的東西，完成後換行」。因此在你撰寫的Java 程式中，
+當你想要將某些訊息列印到螢幕上， 可使用
+System.out.println("things") 完成。
+
+class\marginpar{\fbox{121}}
+名稱必須與檔案主檔名相同。你所開發的程式如果和目前這個程式一樣，
+是個獨立執行的程式，那麼檔案中必須有某個class，名稱和檔案主檔名相同。
+否則編譯器會顯示錯誤訊息。那個class 必須含有一個main()，
+其標記式(signature)必須是：
+
+\begin{Verbatim}[frame=single]
+public static void main(String[] args) {
+\end{Verbatim}
+
+其中的關鍵字public，表示這是一個要公開給外界使用的函式(第五章有更詳細的說明)。
+傳入main() 的引數，是個String 物件陣列。這個程式並未使用args，但
+Java 編譯器會嚴格要求你一定要這麼宣告main()，
+因為args 被拿來儲存「命令行(command line)引數」。
+印出日期的這一行程式碼，相當有趣：
+
+\begin{Verbatim}[frame=single]
+System.out.println(new Date());
+\end{Verbatim}
+
+看看傳入的引數：首先產生一個Date 物件，然後直接傳給println()。
+當這個敘述句執行完畢，產生出來的Date 物件再也不會被使用了，因此垃圾回收器
+(garbage collector)便會在適當時機將這個物件所佔據的空間收回。
+此一物件的清除事宜，我們一點也不用擔心。
+
+\subsection{編譯與執行 (Compiling and running)}
+
+想要編譯並執行這個程式，以及本書的所有其他程式，你必須先將
+Java 開發環境安置妥當才行。目前有許多協力廠商或團體推出各種開發環境，
+本書假設你使用Sun 釋出的免費JDK。如果你使用其他開發系統，
+你可能需要好好調閱其上所附的文件，決定如何編譯和執行。
+
+上網，然後連到 java.sun.com。你可以在這個網站找到相關訊息和鏈結，
+這些資訊和鏈結會引導你下載符合你的硬體平台的JDK，並加以安裝。
+
+一旦JDK 安裝妥當，你也設定好你的路徑(path)，使電腦能夠找到
+javac 和java 這兩個可執行檔(譯註：請參考p.xxxiii 之「Java 環境設定」)，
+請下載本書原始程式碼(也可以在本書所附光碟中找到，或者從
+www.BruceEckel.com 網站取得)。解壓縮之後會自動依本書章節，建立起不同的子目錄。
+現在，請移駕至子目錄 c02，鍵入：
+
+\begin{Verbatim}[frame=single]
+javac HelloDate.java
+\end{Verbatim}
+\marginpar{\fbox{122}}
+
+這一行命令應該不會產生任何回應。如果你發現任何錯誤訊息，便表示你沒有妥當安裝好
+JDK，你得回頭檢查問題出在哪裡。
+如果你沒有得到任何回應訊息，請接著輸入：
+
+\begin{Verbatim}[frame=single]
+java HelloDate
+\end{Verbatim}
+
+然後便能夠看到程式中的訊息和當天的日期被輸出於螢幕上。
+以上整個過程同時也是本書每一個程式的編譯和執行過程。
+你還會看到本書所附的原始碼中，每章都有一個名為makefile 的檔案，
+這個檔案是提供給 ``make'' 指令用的，可以自動造出(build) 該章的所有檔案。
+www.BruceEckel.com 網站上的本書相關網頁，可以告訴你更多如何使用
+makefile 的詳細資訊。
+
+\section{註解及內嵌式文件 \\
+Comments and embedded documentation}
+
+Java 提供兩種註解風格。一種是傳統C 所用的註解風格，C++也承繼了它。
+此種註解以 /* 為首，後接的註解內容可能跨越多行，最後以*/ 結尾。請注意，
+許多程式員喜歡在多行註解中以 * 做為每行起頭，所以常常可以看到這樣子的寫法：
+
+\begin{Verbatim}[frame=single]
+/* This is a comment
+* that continues
+* across lines
+*/
+\end{Verbatim}
+
+
+記住，\marginpar{\fbox{123}}
+/* 和*/ 之間的所有內容，都會被編譯器忽略，所以上述寫法和以下寫法沒有什麼兩樣：
+
+\begin{Verbatim}[frame=single]
+/* This is a comment that
+continues across lines */
+\end{Verbatim}
+
+Java 的第二種註解風格源於C++。這種註解用於單行，以// 為首，直至行末。
+這種註解十分方便，並且因為它的易用性而被廣泛使用。有了這種註解方式，
+就不必在鍵盤上辛苦尋找 / 和 * 的位置，只需連按兩次相同鍵即可，
+而且不必注意註解符號的成對問題。所以你常會看到這種寫法：
+
+\begin{Verbatim}[frame=single]
+// this is a one-line comment
+\end{Verbatim}
+
+\subsection{寓文件於註解 \\
+Comment documentation}
+Java 語言有一項經過深思熟慮之後才有的設計。
+Java 設計者不認為程式碼的撰寫是唯一重要的工作 -
+他們認為說明文件的重要性不亞於程式碼本身。在程式碼說明文件的撰寫上，
+最難的問題大概就是文件本身的維護了。如果文件和程式碼二者分離，那麼，
+每次改變程式碼就得一併更動文件，會是一件很麻煩的事。
+這個問題的解決辦法似乎很單純：讓程式碼和文件鏈結在一起。想要達到這個目的，
+最簡單的作法就是把它們都擺入同一個檔案中。不過，更精確地說，
+這種作法需要某種特殊語法，用以標示出「和程式碼融合在一起」的文件形式。
+此外也需要一個工具，將這些註解文件自程式碼檔案中提解出來，
+轉換為實際可用之文件形式。這正是 Java 的作法。
+
+javadoc 就是用來將程式碼內嵌文件提解出來的工具。這個工具使用Java
+編譯器的某些技術，藉以搜尋比對程式檔中的註解。這個工具不僅會解出由特定標籤
+(tags)所標示的資訊，也會擷取出這些資訊所屬的class 名稱或函式名稱。如此一來，
+一份端端正正、合乎法度的文件，便可以在最小力氣下產生出來。
+
+javadoc 的輸出結果是HTML 檔案，透過Web 瀏覽器便可閱讀。
+這個工具讓你只需維護程式檔， 便可自動產生出立即可用的文件。
+有了\marginpar{\fbox{124}}
+javadoc，大家都可以在文件產生的標準上有所依歸。我們也可以期望或甚至要求，所有
+Java 程式庫都得提供相關的說明文件。
+
+\subsection{語法}
+
+所有的javadoc 命令句，都必須置於以/** 為首的註解內，並以*/ 作為結束。
+Javadoc 的運用有兩種主要型式：內嵌式HTML 或文件標籤(doc tags)。
+所謂文件標籤是一種以@ 符號為首的命令，這個符號必須置於註解的最前面，
+也就是扣掉最前面的 * 之後的最前面處。
+
+文件內容一共有三種型式，分別對應於註解位置前的三種元素：class、
+variable、method。換句話說，class 的註解必須恰好出現在class 定義式之前；
+variable(變數)的註解必須恰好出現在變數的定義之前；method
+(函式)的註解必須恰好出現在函式的定義式之前。以下是個簡單範例：
+
+\begin{Verbatim}[frame=single]
+/** A class comment */
+public class docTest 
+{
+ /** A variable comment */
+ public int i;
+ /** A method comment */
+ public void f() {}
+}
+\end{Verbatim}
+
+請註意，javadoc 只會針對public 或protected 成員，進行註解文件的處理。
+private 或所謂的friendly 成員(請參閱第五章)會被略去，輸出結果中看不到它們
+(不過你也可以打開-private 選項，使宣告為private 的成員一併被處理)。
+這麼做是有道理的，因為只有宣告為public 和 protected 的成員，才能夠為外界所取用；
+用戶端(client)也只能看到這些。至於針對 class 所做的註解，都會被處理並輸出。
+
+上述程式碼的輸出結果是個HTML 檔，其格式就和所有Java 文件所遵循的標準一樣，
+對任何使用者而言肯定不陌生，可從其中輕鬆觀看你所產生的classes 內容。
+當你逐一輸入上述程式碼，然後透過javadoc 產生HTML 文件，
+最後再以瀏覽器觀看產出結果，你會覺得這麼做非常值得。
+
+\subsection{內嵌的HTML} \marginpar{\fbox{125}}
+javadoc 能夠將你所設定的HTML 控制命令，加到它所產生的HTML 文件中。
+這個功能讓你可以盡情發揮HTML 的功能。不過最主要的目的還是讓你用於程式碼的編排，
+例如：
+
+\begin{Verbatim}[frame=single]
+/**
+* <pre>
+* System.out.println(new Date());
+* </pre>
+*/
+\end{Verbatim}
+
+你也可以像編修其它網頁一樣，使用HTML 格式，將你所製作的一般文字描述，
+加以排列美化：
+
+\begin{Verbatim}[frame=single]
+/**
+* You can <em>even</em> insert a list:
+* <ol>
+* <li> Item one
+* <li> Item two
+* <li> Item three
+* </ol>
+*/
+\end{Verbatim}
+
+注意，註解文件中每一行最前面的星號和空白字元，會被javadoc 忽略。
+javadoc 會將所有內容重新編排過，俾使輸出結果能夠符合標準的文件外觀規範。請
+千萬不要在內嵌的HTML 中使用諸如$<$h1$>$或$<$hr$>$之類的標題標籤(headings)，因為
+javadoc 會插入自己的標題標籤，你的標題會對它造成干擾。
+
+不論是classes、variables、methods 的註解說明，都支援這種內嵌HTML
+的功能。
+
+\subsection{@see: 參考其他classes}
+三種不同型態(classes、variables、methods)的註解說明中，都可以含入
+@see 標籤。這個標籤的功能是讓你得以參考其他class 的說明文件。
+javadoc 會自動為@see 標籤產生一個HTML 超鏈結(hyperlinks)，鏈結到其他文件。
+格式如下：
+\marginpar{\fbox{126}}
+\begin{Verbatim}[frame=single]
+@see classname
+@see fully-qualified-classname
+@see fully-qualified-classname#method-name
+\end{Verbatim}
+這三種格式都會使產出的文件中多出「See Also」超鏈結。javadoc
+並不檢查你所提供的超鏈結內容是否存在，所以你得自己注意。
+\subsection{Class(類別)文件所用的標籤}
+除了內嵌HTML 和@see 標籤之外，針對類別(classes)而做的文件說明，
+還可以使用其他標籤來標示作者和版本資訊。這些也都可以套用在
+interfaces(見第八章)身上。
+\subsubsection{@version}
+格式如下：
+\begin{Verbatim}[frame=single]
+@version version-information
+\end{Verbatim}
+其中的version-information(版本資訊)可以是你認為需要加進去的任何重要訊息。不過，
+只有在執行javadoc 時將-version 選項打開，上述的版本資訊才會被加到所產生的
+HTML 文件內。
+\subsubsection{@author}
+格式如下：
+\begin{Verbatim}[frame=single]
+@author author-information
+\end{Verbatim}
+其中的author-information(作者資訊)，顧名生義，就是你的名字。
+也可以包含你的電子郵箱或其他適合加入的資訊。不過，只有在執行
+javadoc 時將-author 選項打開，上述的作者資訊才會被加到所產生的
+HTML 文件內。
+
+你也可以提供多個author 標籤，列出所有作者。這些author 標籤必須連續出現。產出的
+HTML 中，所有作者資訊都會被併到同一段。
+
+\marginpar{\fbox{127}}
+
+\subsubsection{@since}
+這個標籤讓你指定程式碼所使用的最早版本。你可以在HTML Java 文件中，
+看到這個標籤被用來指出所使用的JDK 版本。
+
+\subsection{Variable(變數)文件所用的標籤}
+變數說明文件中，除了@see 標籤外，只能使用內嵌HTML 的方式。
+\subsection{Method(函式)文件所用的標籤}
+除了@see 標籤和內嵌HTML 的方式外，針對函式所做的說明文件，
+還可以使用描述其參數、回傳值、異常(exceptions)等的控制標籤。
+\subsubsection{@param}
+格式如下：
+\begin{Verbatim}[frame=single]
+@param parameter-name description
+\end{Verbatim}
+其中的parameter-name(參數名稱)是位在參數列中的識別字，
+description(描述句)則是純粹文字，可以延續數行，直到遇上新標籤才結束。
+此一標籤的使用次數不限，通常我們會在撰寫時為每一個參數提供一份說明。
+\subsubsection{@return}
+格式如下：
+\begin{Verbatim}[frame=single]
+@return description
+\end{Verbatim}
+其中的description 用來描述回傳值的意義；可以延續數行。
+\subsubsection{@throws}
+本書第10 章才會討論異常(exception)。簡單地說，那是一種可以被
+「擲出(throw)」的物件，當函式在執行過程中發生問題，可以擲出異常，
+告訴外界發生了這個錯誤。當你呼叫某個函式時，
+雖然最多只可能出\marginpar{\fbox{128}}現一個異常，
+但函式可能產生任意多個不同型別的異常物件，它們都需要加以描述。
+描述異常用的標籤格式是：
+\begin{Verbatim}[frame=single]
+@throws fully-qualified-class-name description
+\end{Verbatim}
+其中的full-qualified-class-name 代表某個異常類別 (exception class)
+的完整名稱，必須獨一無二(譯註：所謂完整路徑是指包含
+package 名稱)。description 則是用來說明在什麼情形下呼叫這個函式，
+會產生此一型別的異常。
+\subsubsection{@deprecated}
+這個標籤標示，此一函式已被更新的功能替換，建議使用者不要再使用它，
+因為它可能在不久的將來被移除。如果你在程式中運用被標示為
+@deprecated 的函式，編譯器會發出警告。
+subsection{文件製作實例}
+底下這個程式，是先前介紹過的第一個 Java 程式。這次加上了註解命令：
+\begin{Verbatim}[frame=single]
+//: c02:HelloDate.java
+import java.util.*;
+/** The first Thinking in Java example program.
+* Displays a string and today's date.
+* @author Bruce Eckel
+* @author www.BruceEckel.com
+* @version 2.0
+*/
+public class HelloDate 
+{
+ /** Sole entry point to class & application
+ * @param args array of string arguments
+ * @return No return value
+ * @exception exceptions No exceptions thrown
+ */
+ public static void main(String[] args) 
+ {
+  System.out.println("Hello, it's: ");
+  System.out.println(new Date());
+ }
+} ///:~
+\end{Verbatim}
+\marginpar{\fbox{129}}
+
+在第一行中，我使用自己獨特的方式，將 ``:'' 作為一個特殊標示，
+描述此一註解所在之原始碼檔案的名稱。這一行包含了檔案的完整路徑(本例的
+c02 代表第 2 章)，然後是檔案名稱\footnote{我利用 Python
+(請參考www.Python.org)寫出一個工具，能夠根據這份資訊萃取出程式檔，
+擺放在適當的子目錄下，並產生makefile。}， 最後一行也以註解作收，
+代表這份原始碼已經到了盡頭，此後再無內容。
+如此一來便能夠自動化地將這些程式碼自本書文字中取出，再以編譯器驗證之。
+\section{撰碼風格(Coding style)}
+Java 對於classes(類別)的命名有一個不成文規定：名稱的第一個字母大寫。
+如果名稱之中含有許多個別字，就把這些字併在一塊兒(不以底線連接)，
+每一個被併在一塊兒的字的第一個字母都採大寫。例如：
+
+\begin{Verbatim}[frame=single]
+class AllTheColorsOfTheRainbow { // ...
+\end{Verbatim}
+
+幾乎所有名稱，包括methods(函式)、fields(資料成員)、object reference，
+命名方式都遵循上述法則，唯一的例外是，它們的名稱第一個字母採用小寫而非大寫。
+例如：
+\begin{Verbatim}[frame=single]
+class AllTheColorsOfTheRainbow 
+{
+ int anIntegerRepresentingColors;
+ void changeTheHueOfTheColor(int newHue) 
+ {
+  // ...
+ }
+ // ...
+}
+\end{Verbatim}
+當然，你應該體認，classes 使用者在撰寫程式時，也得輸入這麼長的名字。
+所以命名時請多為使用者著想，別過度使用無意義又冗長的名稱。
+
+Sun 程式庫中的Java 程式碼，其左大括號和右大括號的擺放方式，和本書的風格一致。
+\marginpar{\fbox{130}}
+\section{摘要}
+你已經從本章中看到撰寫一個簡單Java 程式所應具備的相關知識。你也已經對
+Java 程式語言有了一個概括性的認識，並了解某些Java 基本觀念。
+到目前為止，所有範例都只停留在「做這件事情，然後做這件事情，接著做那件事情...」
+的形式。如果你希望程式能夠進行一些判斷，像是：「如果做這件事情的結果是紅色，
+那麼就做那件事情；否則，就做另一件事情...」，這該怎麼進行呢？
+Java 所提供的此類程式編寫基本行為，將在下一章說明。
+\section{練習}
+\footnotesize
+某些經過挑選的題目，其解答置於
+《The Thinking in Java Annotated Solution Guide》電子文件中。
+僅需小額費用便可自www.BruceEckel.com.網站取得。
+
+\normalsize
+\begin{enumerate}
+\item 請仿照本章的HelloDate.java 範例程式，寫一個單純印出「hello,
+world」的程式。你所撰寫的class 只需具備一個函式即可，
+也就是程式執行時第一個執行起來的main()。請不要忘了將它宣告為
+static，並為它指定引數列- 即使你不會用到這個引數列。以
+javac 編譯這個程式，並以java 執行它。如果你的開發環境不是
+JDK，請學習如何在你的環境下進行程式的編譯和執行。
+\item 找出含有ATypeName 的程式片段，將它變為一個完整的程式，
+編譯後執行。
+\item 將DataOnly 的程式片段變成一個完整程式，編譯後執行。
+\item 修改習題3 所完成的程式，讓DataOnly 中的資料可以在main()
+中被指定，並列印出來。
+\item 撰寫某個程式，含入本章所定義的storage()，並呼叫之。
+\item 將 StaticFun 程式片段，轉變成一個整個的程式，編譯後執行。
+
+\item 撰寫某個程式，\marginpar{\fbox{131}}使它能夠接受由命令列
+(command line)傳入的三個引數。為此，
+你得對代表命令列引數的Strings 陣列進行索引。
+\item 將 AllTheColorsOfTheRainbow 這個範例改寫成真正程式，編譯後執行。
+\item 找出HelloDate.java 的第二個版本，也就是本章用來說明註解文件的那個程式例。
+請對該檔案執行javadoc，並透過你的瀏覽器觀看產生的結果。
+\item 將docTest 儲存為檔案並編譯之。然後使用javadoc 為它產生文件。最後，
+透過你的瀏覽器觀看產生的結果。
+\item 在練習10 中，以內嵌HTML 的方式加入一個HTML 項目列表。
+\item 使用練習1 的程式，為它加上註解文件。使用javadoc 為此註解文件產生一個
+HTML 檔，並以你的瀏覽器觀看產生的結果。
+
+\end{enumerate}
