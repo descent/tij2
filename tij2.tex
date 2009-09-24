@@ -1,8 +1,28 @@
 \documentclass[12pt,a4paper]{book}
 
-\usepackage[dvips]{hyperref}
+%\usepackage{CJK} %使用CJK套件
+\usepackage{url}
+\usepackage{CJKutf8}
 \usepackage{comment}
-\usepackage{CJK} %使用CJK套件
+\usepackage{ucs}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{hyperref} % 最好保證 hyperref 是最後載入的 macro
+\hypersetup{%
+%  dvipdfmx,% 设定要使用的 driver 为 dvipdfmx
+  dvips,% 设定要使用的 driver 为 dvipdfmx
+  unicode={true},% 使用 unicode 来编码 PDF 字符串
+  pdfstartview={FitH},% 文档初始视图为匹配宽度
+  bookmarksnumbered={true},% 书签附上章节编号
+  bookmarksopen={true},% 展开书签
+  pdfborder={0 0 0},% 链接无框
+  pdftitle={latex 學習心得},
+  pdfauthor={descent},
+  pdfsubject={latex 學習},
+  pdfkeywords={latex},
+  pdfcreator={ps2pdf},
+  pdfproducer={PDF 制作程序},% 这个好像没起作用？
+}
 
 
 
@@ -42,7 +62,8 @@
 
 \begin{document}
 
-\begin{CJK}{UTF8}{cwfsu} 
+%\begin{CJK}{UTF8}{cwfsu} 
+\begin{CJK}{UTF8}{cybercjk} 
 
 \renewcommand{\contentsname}{目錄}
 \renewcommand{\tablename}{表}
@@ -64,7 +85,7 @@
 \mainmatter
 %\addcontentsline{toc}{chapter}{序言}
 \include{intro_obj}
-\include{object}
+%\include{object}
 \end{CJK}{UTF8}{cwfsu} 
 \end{document}
 
