@@ -1,0 +1,91 @@
+\documentclass[12pt,a4paper]{book}
+
+%\usepackage{CJK} %使用CJK套件
+\usepackage{url}
+\usepackage{CJKutf8}
+\usepackage{comment}
+\usepackage{ucs}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{hyperref} % 最好保證 hyperref 是最後載入的 macro
+\hypersetup{%
+%  dvipdfmx,% 设定要使用的 driver 为 dvipdfmx
+  dvips,% 设定要使用的 driver 为 dvipdfmx
+  unicode={true},% 使用 unicode 来编码 PDF 字符串
+  pdfstartview={FitH},% 文档初始视图为匹配宽度
+  bookmarksnumbered={true},% 书签附上章节编号
+  bookmarksopen={true},% 展开书签
+  pdfborder={0 0 0},% 链接无框
+  pdftitle={thinker in java 2nd edition},
+  pdfauthor={},
+  pdfsubject={java},
+  pdfkeywords={java},
+  pdfcreator={ps2pdf},
+  pdfproducer={PDF 制作程序},% 这个好像没起作用？
+}
+
+
+
+
+\begin{comment}
+\ctxfdef{\chapter}{\ctxfm}{\ctxfr}
+\ctxfdef{\section}{\ctxfm}{\ctxfr}
+\ctxfdef{\subsection}{\ctxfm}{\ctxfr}
+\ctxfdef{\subsubsection}{\ctxfm}{\ctxfr}
+\end{comment}
+
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage[sf]{titlesec}
+%\ctxfdef{\chapter}[\ctxfm]{\ctxfm}
+
+% 照列原文
+\usepackage{fancyvrb}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+\fancyhf{}
+\fancyhead[LE]{\leftmark}
+\fancyhead[RO]{\rightmark}
+\fancyfoot[CE,EO]{Thinking in Java}
+\fancyfoot[RE,LO]{www.BruceEckel.com}
+\fancyfoot[LE,RO]{\thepage}
+\renewcommand{\footrulewidth}{0.4pt}
+
+
+\fancypagestyle{plain}{%
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[RO]{\thepage}
+\fancyfoot[LE]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}}
+
+\begin{document}
+
+%\begin{CJK}{UTF8}{cwfsu} 
+\begin{CJK}{UTF8}{cybercjk} 
+
+\renewcommand{\contentsname}{目錄}
+\renewcommand{\tablename}{表}
+\renewcommand{\figurename}{圖}
+\renewcommand{\listtablename}{表格目錄}
+\renewcommand{\listfigurename}{圖目錄}
+\renewcommand{\chaptermark}[1]{\markboth{第\ \thechapter\ 章\ #1}{}}
+\renewcommand{\sectionmark}[1]%
+%\titleformat{\chapter}[display]{\LARGE\sf}{第\ \thechapter\ 章}{0.2cm}{}
+%{\markright{\thesection~ #1}}
+
+\frontmatter
+\tableofcontents
+\listoftables
+\listoffigures
+\include{preface}
+%\addcontentsline{toc}{section}{第二版序}
+\include{intro}
+\mainmatter
+%\addcontentsline{toc}{chapter}{序言}
+\include{intro_obj}
+\include{object}
+\end{CJK}
+\end{document}
+

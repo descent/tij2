@@ -1,0 +1,552 @@
+\chapter{簡介 (Introduction)}\marginpar{\fbox{9}}
+Java，一如人類所使用的任何一種自然語言，提供的是意念表達的機制。
+如果使用恰到好處，那麼作為一種表達媒介，
+當你打算解決的問題益形龐大複雜，解法益形簡易而富彈性。
+
+你不能僅僅將Java 看成某些特性的集合- 這些特性之中某些被支解而被獨立對待時，
+將不具絲毫意義。只要你心中存有「設計」念頭，而非單單只是撰碼，
+那麼便可以整體性地運用Java 的所有組成。如果想以這種方式來了解
+Java，你還必須了解其衍生問題，以及在一般情況下其程式設計過程所衍生的問題。
+本書所討論的是程式設計的問題、它們之所以成為問題、以及
+Java 採取的解決方案。因此，我在各章之中所描述的各種特性，
+其建構基礎皆是「我所看到的此一程式語言，在解決特定問題時的方式」。
+透過這種方式，希望能夠對你潛移默化，漸漸地讓
+Java 式思考模式成為對你而言再自然不過的一件事。
+
+我的態度始終一致：你得在腦中建立模型，藉以發展出對此程式語言的深層體會和洞悉；
+如果你在某個問題上陷入思想泥沼，可將它饋入腦內模型，並推導答案。
+\section{閱讀門檻}
+本書假設你對編程(programming)一事有著某種程度的熟悉：
+你已經了解程式是許多敘述句的集合，你已經明白副程式/函式/巨集的觀念，懂得諸如
+``if'' 之類的流程控制敘述，以及諸如 ``while'' 之類的迴圈概念...等等。
+你可以從許多地方學習到這些東西，例如用巨集語言來設計程式，或使用諸如
+Perl 之類的工具來工作。只要你在編程上的境界能夠
+「自在地以編程基本概念來編寫程式」，那麼你便可以閱讀本書。當然，本書對於
+C 程式\marginpar{\fbox{10}}員而言，相對容易些，對C++程式員而言更是如此。
+但如果你對這兩種語言毫無經驗，也不必妄自菲薄(但請懷著高度的學習熱忱。
+本書所附的多媒體光碟，能夠帶領你快速學習對Java 而言必備的基本C 語法)。
+我同時會引入物件導向程式設計(Object-Oriented Programming，OOP)
+的觀念，以及Java 的基本控制機制。你會接觸到這一切，
+並在第一個練習題中練習基本的流程控制敘述。
+
+雖然書中有許多參考資料，介紹的是C/C++語言的特性，
+但那並不是為了進行更深層的詮釋，而只是希望幫助所有程式員正確看待Java，畢竟
+Java 是C/C++的後裔。我會儘量簡化這些參考資料，並解釋所有我認為
+non - C/C++ 程式員可能不怎麼熟悉的部份。
+
+\section{學習Java}
+
+差不多就在我的第一本書《Using C++》( Osborne/McGraw-Hill ， 1989)
+面世的同時，我開始教授語言。程式語言的教學已經變成了我的職業。
+1989 年起，我在世界各地，看到了昏昏欲睡的聽眾，有人帶著一張面無表情的臉孔，
+困惑的神情兼而有之。當我開始對小型團體進行內部訓練時，
+我在訓練過程中發掘到某些事實：即便是對我點頭微笑的學生，同樣困惑於許多議題。
+我發現， 多年來在「軟體發展討論會( Software Development Conference)」上主持
+C++(後來變成Java)專題的工作中，我和其他講師一樣，
+潛意識裡想要在極短時間內告訴我的聽眾許多許多東西。由於聽眾的程度各有不同，
+也由於我的教材呈現方式，最終無法顧及某部份聽眾。或許如此要求有些過份，
+但因為我向來反對傳統授課方式(而且我相信對大多數人們來說，
+反對的理由是來自於厭倦)，所以我試著讓每個人都加速前進。
+
+一度，我以十分簡短的方式做了許多不同風格的演出。最後，我結束了實驗和迭代
+(iteration，一種在Java 程式設計中也會用到的技巧)」的學習歷程。
+我根據授課經驗所學來的事物(它讓我可以長時間快樂教學)，發展出一套課程。
+這套課程採用分離並極易融會貫通的數個步驟來處理學習上的問題，
+並採取動手實踐的研討形式(這是最理想的學習方式)。
+在其\marginpar{\fbox{11}}中，我為每一小部份課程內容設計了多個練習題。
+現在我將此一課程置於開放的 Java 研討課程內，你可以在
+www.BruceEckel.com 網站上找到這份研討課程的內容。
+(這個研討課程的簡介也可以在書附光碟中取得。上述網站也可以找到相關資訊。)
+
+我從各個研討班獲得許多回饋訊息。
+在我認為我的這份課程材料足以成為一份正式的教學工具之前，
+這些回饋訊息對於我的課程材料的更動和調整，助益良多。儘管如此，
+本書絕不能以一般的研討課程筆記視之 - 我試著在這些書頁中放入儘可能多的資訊，
+並將這些資訊加以結構化，藉以引領你平順地前進至下一個討論主題。最重要的是，
+本書是為那些孤單面對一個全新語言的讀者而設計。
+
+\section{目標}
+就像我的前一本書《Thinking in C++》一樣，
+這本書結構性地環繞著程式語言教學引導上的過程。
+我的原始動機是希望創造一些材料，使我可以將自己在研討課程中採用的風格，
+融於程式語言教學之中。當我安排本書章節時，
+我的思考方式就像思考「如何在研討班上一堂好課」一樣。我的目標是，
+切割出可以在合理時數中教完而又容易被吸收的材料，並附帶適合於教室內完成的習題。
+以下是本書的目標：
+\begin{enumerate}
+\item 一次呈現一個階段的題材，讓你可以在移至下一課題之前，輕鬆消化每個觀念。
+\item 範例儘可能簡短、單純。
+但是這麼一來便會在某種程度上遠離了真實世界的問題處理方式。儘管如此，我發現，
+對初學者而言，詳盡理解每個範例，所帶來的愉悅勝過於了解它所能解決的問題範圍。
+能夠在教室中吸引學習者興趣的程式碼，數量十分有限，因此我無疑得承受諸如
+「使用玩具般的小例子」的種種批判，
+但我還是滿心歡喜地接受任何可以為教學帶來益處的形式。
+\item 謹慎安排諸般特性的呈現順序，\marginpar{\fbox{12}}
+讓你不致於突兀地碰觸到任何未曾見過的內容。
+萬一在某些情形下無法達到此一理想，我會提出一些簡要的引導。
+\item 只給你那些「我認為對你了解此一程式語言而言十分重要」的內容，
+而非將我所知道的一切都倒給你。我相信「資訊重要性的階層順序」的確存在，
+某些題材對百分九十五的程式員來說或許沒有必要，這些資訊往往只會混淆他們的觀念，
+並加深他們對此語言的複雜感受而已。舉個 C 語言的例子好了，
+如果你能清楚記得運算子優先序 (operator precedence)，
+撰寫出精巧的程式碼想必輕而易舉。但這麼做卻有可能造成讀者、維護者的困惑。所以，
+忘了運算子優先序吧！在任何可能混淆的地方使用小括號不就得了。
+\item 讓每一節內容有足夠的焦點，縮短授課和練習時段之間的空檔。
+這麼做不僅為了讓聽眾的心態更為主動，融入「自己動手做」的研討氣氛，
+而且也讓讀者更具成就感。
+\item 讓你始終踏在紮實的基礎上，透過對各課題的充份了解，
+面對更困難的作業和書籍。
+\end{enumerate}
+
+\section{線上說明文件 (Online documentation)}
+從Sun Microsystems 取得的Java 程式語言及其程式庫(可免費下載)，
+皆附有電子文件，使用Web 瀏覽器即可閱讀。幾乎所有
+Java 編譯器廠商也都提供了此份文件，或是等價的文件系統。大部份
+Java 書籍也都提供此份文件的複製品。所以，除非必要，本書不會重述其內容，
+因為對你而言，使用 Web 瀏覽器來找尋 classes 的說明，比遍尋全書來得快多了
+(更何況線上說明文件的版本可能更新)。只有當有必要補充線上文件之不足，
+使你得以理解特定範例時，本書才會提供classes 的各種額外描述。 
+
+
+\section{章節組織}\marginpar{\fbox{13}}
+設計本書時，有一個念頭長在我心：人們面對Java 語言的學習路線。
+研討班學員所給的回饋訊息幫助我了解哪些困難部份需要詳加闡述。在那些「太過燥進、
+一次含入太多主題」之處，我也透過教材的呈現而一一明白：
+如果企圖包含許多新主題，就得全部說明清楚，因為新東西很容易造成學生的困惑。
+基於這個原因，我儘可能每次只講一小段主題，避免生出太多困擾。
+
+因此，我的目標便是每一章只教授單一主題，或是一小組相關主題，
+儘量不和其他主題有所牽扯。如此你便得以在前進至下一主題前，
+完全消化目前知識背景中的所有題材。 以下就是本書各章的簡要描述，
+它們分別對應於我的研討班各授課時程和練習時段。
+
+\begin{description}
+\item[第 1 章：] 物件導論(Introduction to Objects)
+本章提供物件導向程式編寫(object oriented programming)
+的概論性介紹，包括最基本問題的回答，例如物件(object)
+是什麼、介面(interface)與實作(implementation)、抽象
+(abstraction)與封裝(encapsulation)、訊息(messages)
+與函式( functions ) 、繼承( inheritance ) 與合成
+(composition)，以及最重要的多型(polymorphism)。
+你也可以概要了解物件生成時的諸般問題， 像是建構式
+(constructors)、物件的生命、物件被建立後置於何處、神奇的垃圾回收器
+(garbage collector，當物件不再被使用時能夠加以清理回收)。其他相關議題也有討論，
+包括異常處理 (exception handling)、多執行緒(multithreading)、網絡、
+Internet 等等。你會看到是什麼東西使得Java 卓越出眾，
+是什麼原因使得Java 如此成功，你也會學到物件導向的分析概念和設計概念。
+
+\item[第 2 章：] 萬事萬物皆物件(Everything is an Object)
+本章引領你開始撰寫第一個Java 程式。因此所有最基本的概觀都必須在這裡教給你，
+包括：object reference(物件引用)\marginpar{\fbox{14}}觀念、物件產生方式、
+基本型別(primitive types)與陣列 (arrays)、物件的生存空間(scoping)，
+物件被垃圾回收器回收的方式、如何在Java 中讓每樣東西成為新的資料型別
+(class)、如何建立你自己的classes。此外還包括：函式、引數、回傳值、名稱可視性、
+自其他程式庫取用組件 (components)的方式、關鍵字 static、註解、內嵌文件。
+\item [第 3 章：] 控制程式流程(Controlling Program Flow)
+本章首先討論的是Java 引自C/C++ 的所有運算子 ( operators ) 。
+此外你會看到運算子的共通缺點、轉型 (casting)、型別晉升 (promotion)、運算優先序。
+然後介紹基本流程控制，這是幾乎每一個程式語言都會提供的機制：
+if-else 分支選擇、for/while 迴圈結構、以 break 和 continue
+跳脫迴圈；其中當然包括了Java 的標註式(labeled)break 和標註式 continue (這是為了
+Java 不再提供goto 而設計)，以及 switch/case 選擇動作。雖然大部份特性和 C/C++
+相同，但亦有些許差異存在。此外，所有範例皆以Java 撰寫，因此你可以清楚看到
+Java 的程式風格。
+\item [第 4 章：] 初始化與清理(Initialization \& Cleanup)
+本章一開始先導入建構式(constructor)的概念，它用來保證初始化動作的順利進行。
+建構式的定義會牽扯到函式重載 (function overloading) 觀念
+(因為你可能同時需要多個建構式)。接著便是清理過程的討論，
+這個過程的字面意義總是比實際簡單得多。正常情形下當你用完一個物件，
+什麼也不必操心，垃圾回收器最終會執行任務，釋放該物件所配置的記憶體。
+我會探討垃圾回收器及其本質。最後我們近距離觀察自動化的成員初值設定、
+自定的成員初值設定、初始化順序、 static (靜態)初始化、以及 array 的初始化。
+這些細微的物件初始化動作的探討，為本章劃上美好句點。
+
+\item [第 5 章：] 隱藏實作細目(Hiding the Implementation)\marginpar{\fbox{15}}
+本章討論程式碼的封裝，並解釋為什麼程式庫中某些部份被公諸於外，
+某些部份卻被隱藏起來。一開始我們先檢視兩個關鍵字：package 和 import，
+它們在檔案層次上進行封裝，並允許你打造 classes libraries。
+接著探討目錄路徑和檔案名稱的問題。最後檢視 public、private、protected
+等數個關鍵字， 並引介 ``friendly'' (友善的)存取動作，
+以及不同情境下所使用的各種存取權限的意義。
+\item [第 6 章：] 重複運用classes(Reusing Classes) 繼承 (Inheritance)
+幾乎是所有物件導向程式語言的標準配備。它讓我們得以使用既有的 classes，
+並得為它加入額外功能 (而且還可以改變，這是第七章的主題)。
+繼承通常用於程式碼的重複運用(reuse)：讓base class 保持不變，只補上你想要的東西。
+不過，要想藉由既有的 classes 來製造新的 class， 繼承並非唯一途徑。
+你也可以運用所謂的「複合」 (composition)，將物件嵌入新的 class 內。
+你可以在本章學到如何以 Java 的方式達到重複運用程式碼的目的，並學會如何應用。
+\item [第 7 章：] 多型(Polymorphism) 多型，物件導向程式設計的基石。
+如果只靠自我修練，你或許得花九個月的時間才能夠體會其奧秘。透過小而簡單的範例，
+你將看到如何以繼承機制建立一整個族系的型別，並透過共同的 base class，
+操作同一族系中的物件。Java
+的多型機制允許你以一般性的角度看待同一族系的所有物件。
+這意謂大部份程式碼不至於過度倚賴特定型別資訊，於是程式更易於延伸，
+並使程式的發展與原始碼的維護更加簡單，更不費力。
+\item [第 8 章：] 介面(Interfaces)與內隱類別(Inner Classes)
+Java 提供「建立重複運用關係」的第三種形式：interface，
+那是物件對外介面的一個純粹抽象描述。interface 不僅將抽象類別
+(abstract class)發揮到極致，由於它允許你建立某種 class，可向上轉型
+(upcast)至多個base classes，所以它提供了類似 C++「多重繼承
+(multiple inheritance)」的變形。\marginpar{\fbox{16}}
+inner classes(內隱類別)看起來似乎是個簡單的程式碼隱藏機制：只不過是將
+class 置於另一個class 之內而已。但其實不僅於此，它知曉
+surrounding class(外圍類別)並可與之溝通。雖然 inner classes
+對大多數人而言是一個全新觀念，需要花上一些時間才能無礙地利用它從事設計，但
+inner classes 的確可以讓程式碼更優雅、更澄淨。
+\item [第 9 章：] 物件的持有(Holding your Objects)
+一個程式如果只是擁有帶著已知壽命的固定數量的物件，這種程式其實是相當簡單的。
+一般來說，你的程式會在不同時間點產生新物件，
+而這些時間點只有程式執行之際才能確定。此外，除非處於執行期，
+否則你可能無法知道你所需要的物件數量，及其確切型別。為了解決一般化的程式問題，
+你必須有能力在任何時間、任意地點，產生任意數量的物件。本章深入探討 Java 2
+所提供的容器程式庫(container library)，讓你得以妥善保存你所需要的物件。
+我的討論包括最簡單的 arrays (陣列)，以及 ArrayList、HashMap 之類的複雜容器
+(或說資料結構)。
+\item [第 10 章：] 透過「異常」處理錯誤(Error Handling with Exceptions) 
+Java 的基本設計哲學是，不允許「會造成損害」的程式碼執行起來。編譯器會儘可能捕捉
+(catches)它所能捕捉的錯誤，但有時候某些問題 -
+不論是程式員引起或程式正常執行下自然發生 - 只能夠在執行期被偵測、被處理。
+Java 具備了所謂的異常處理機制 (exception handling)，
+可用來處理程式執行期引發的種種問題。本章討論了try 、catch、throw、 throws、
+finally 等關鍵字在 Java 中的運作方式，並說明何時才是擲出
+(throw)異常的最佳時機，告訴你捕捉到異常時該如何處理。此外你也會看到
+Java 的標準異常，學習如何建立自定異常，並知道在建構式 (constructors)
+中觸發異常時會發生什麼事，以及異常處理程序(exception handlers)的放置方式。
+
+\item [第 11 章：] Java 的I/O 系統(The Java I/O System)\marginpar{\fbox{17}}
+理論上你可以將程式劃分為三部份：輸入(input)、處理 (process)和輸出 (output)。
+這意謂 I/O(輸入和輸出) 在此一方程式中佔了極大比重。本章可以讓你學到
+Java 的諸般類別，讓你進行檔案、記憶體區塊、主控台(console)的資料讀取和寫入。
+本章也會提及介於「傳統I/O」和「全新 Java I/O 」之間的差異。
+此外本章也會檢視「將物件串流化 (streaming)」
+(俾使物件得以被置於磁碟，或於網絡上傳遞)的過程，並討論如何將其重構
+(reconstructing)。這些都是透過 Java 的「物件次第讀寫」(object serialization)
+機制達成。當然，用於Java 保存檔(Java ARchive，JAR)格式的
+Java 壓縮類別庫，也會在本章介紹。
+\item [第 12 章：] 執行期型別辨識(Run-Time Type Identification)
+當你僅有某物件的基礎類別的reference 時，Java 的執行期型別辨識
+(RTTI)機制可讓你找出該物件的確切型別。通常你應該會想要刻意忽略物件的確切型別，
+讓 Java 的動態繫結 (dynamic binding)機制(亦即多型，polymorphism)
+負責展現特定型別應有的特定行為。不過有時候，當你僅有某物件的基礎類別的
+reference，而能進一步知道該物件的確切型別， 可帶來很大用處。
+通常此一資訊讓你得以更高效率地執行某些特定動作。本章說明：(1)何謂 RTTI，
+(2)RTTI 的使用方式，(3)不該使用RTTI 時，應如何避免使用。本章也介紹了 Java 的
+reflection 機制。
+\item [第 13 章：] 建立視窗和 Applets Java 所附的 Swing GUI library，
+是一組可攜性高的視窗相關類別程式庫。此處所謂的視窗程式，
+可以是網頁內嵌小程式 (applets)，也可以是獨立的應用程式 (applications)。
+本章內容包含Swing 的簡介和WWW applets 的開發。同時也介紹極重要的 JavaBeans
+技術 - 它是所有快速應用軟體開發工具(Rapid-Application Development，RAD)的根本。
+
+\item [第 14 章：] 多執行緒(Multiple Threads) \marginpar{\fbox{18}}
+Java 提供了一些內建機制，使得單一程式內可同時並行多個被稱為「執行緒
+(threads)」的子工作(但除非你的機器裝載多顆處理器，
+否則這種運作方式只是形式而已)。雖然任何地方都可以應用執行緒，
+但最主要還是應用於需要高度互動能力的使用者介面上。舉個例子，
+雖然還有一些處理動作正在進行，但使用者可以不受阻礙地按下按鈕或輸入資料。
+你將在本章看到 Java 多執行緒的語法和語義。
+\item [第 15 章：] 分佈式計算(Distributed Computing)
+當你開始想要撰寫運行於網絡上的程式時，一時間好像所有的 Java
+特性和類別庫都一起湧現。本章探討網絡及 Internet 的通訊問題，以及 Java
+提供的相關 classes。本章也介紹了重要的 Servlets 和 JSPs 觀念
+(兩者皆用於伺服端程式設計)，以及 Java 資料庫連結機制
+( Java Database Connectivity ， JDBC ) 、遠端函式調用
+( Remote Method Invocation, RMI)等技術。最後還介紹了 JINI、JavaSpaces、
+Enterprise JavaBeans(EJBs)等的最新技術。
+\item [附錄A:] 物件的傳遞和回傳(Passing \& Returning Objects) Java
+允許你和物件溝通的唯一方式是，透過 reference 達成。
+所以，將物件傳入函式內以及函式將物件回傳，便存在著某些有趣的結果。
+這份附錄說明，當你將物件移入函式，或將物件自函式移出時需要知道哪些事情，
+才能妥善管理這些物件。本附錄也為你介紹 String class
+如何使用另一種截然不同的手法來解決問題。
+\item [附錄B:] Java 原生介面(The Java Native Interface, JNI) 全然可攜的
+Java 程式有某些致命缺點：執行速度慢、無法存取特定平台上的服務。
+一旦你確切知道你的程式的執行平台，\marginpar{\fbox{19}}
+大幅提升某些動作的執行速度是極有可能的 - 只要透過所謂的原生函式
+(native methods )即可。原生函式係以另一種語言 (目前僅支援C/C++) 寫成。
+這份附錄為你提供足夠的入門引導，讓你能夠寫出「和
+non-Java 程式相接連」的簡單程式。
+\item [附錄C:] Java 程式設計守則(Java Programming Guidelines)
+本附錄提供許多建議，幫助你進行較低層次的設計和撰碼工作。
+\item [附錄D:] 推薦讀物(Recommended Reading) 本附錄列出我所知道的
+Java 書籍中格外有用的名單。
+\end{description}
+
+
+\section{習題}
+研討班的經驗使我察覺，簡單的練習對於學生所需要的完整理解有著超乎尋常的效果。
+因此每章末尾我都安排了一些習題。
+大多數習題都夠簡單，
+使你得以在指導者從旁協助的情況下，以合理的時間完成。
+這可確保所有學生都順利吸收了教材內容。某些習題難度較高，
+以免經驗豐富的學生心生厭倦。多數題目都可以在短時間內解決，
+並可用來檢驗所學以及鍛練自己。某些題目具有挑戰性，但其中並沒有難度很高者 -
+我想你應該會自己找到這樣的題目，或者很有可能它們會自動找上門來。
+
+某些經過挑選的習題有電子檔解答，收錄於《The Thinking in Java
+Annotated Solution Guide》，僅須小額付費即可自 www.BruceEckel.com 下載。
+\section{多媒體光碟(Multimedia CD ROM)}
+本書有兩張相關的多媒體光碟。第一張光碟《Thinking in C》隨書附贈。
+本書前言最末曾對此光碟有些介紹。CD 之中準備了一些相關材料，讓你可
+以加速學習必要的 C 語法 - 這是學習 Java 不可或缺的一步。
+
+第二張多媒體光碟也和本書內容有關。\marginpar{\fbox{20}}
+這是一份獨立產品，其中含有一週的「Java 動手做
+(Hands-On Java)」訓練課程的所有內容。我所錄的講課內容長度超過十五小時，
+並整合上百張投影片。由於我的研討班課程係以本書為基礎，
+所以這是極為理想的補充教材。
+
+這張光碟還含有五天時程的精修班課程內容(其主題將和個人著重方向有密切的關係)。
+我們相信，它為品質樹立了新的標準。
+
+如果你需要「Java 動手做」光碟，請向 www.BruceEckel.com 網站訂購。
+\section{原始碼(Source code)}
+本書所有原始碼都被我宣告為自由軟體(freeware)，以單一包裝形式進行傳佈。只需訪問
+www.BruceEckel.com 網站即可取得。如果想要確認你所拿到的是否為最新版本，
+上述網站是此一產品的官方站台。或許你可以從其他網站取得這份產品的鏡像版本
+(mirrored version)，不過你應該到官方網站上確認，
+確保你所拿到的鏡像產品的確是最新版。
+你有權力在你的課程或其他教育場合傳佈這些程式碼。
+
+以下版權宣告的主要目的，是希望確保原始碼皆被適當引用，
+並且不希望你在沒有獲得允許的情況下，自行透過印刷媒體重新發行這些程式碼。
+只要你引用了以下聲明，
+那麼一般而言在大部份媒體上使用本書範例都不會帶給你任何麻煩。
+
+你可以在每一個原始碼檔案中看到如下的版權宣告：
+
+\begin{Verbatim}[frame=single]
+//:! :CopyRight.txt
+Copyright c2000 Bruce Eckel
+Source code file from the 2nd edition of the book
+"Thinking in Java." All rights reserved EXCEPT as
+allowed by the following statements:
+You can freely use this file
+\end{Verbatim}
+\marginpar{\fbox{21}}
+\begin{Verbatim}[frame=single]
+for your own work (personal or commercial),
+including modifications and distribution in
+executable form only. Permission is granted to use
+this file in classroom situations, including its
+use in presentation materials, as long as the book
+"Thinking in Java" is cited as the source.
+Except in classroom situations, you cannot copy
+and distribute this code; instead, the sole
+distribution point is http://www.BruceEckel.com
+(and official mirror sites) where it is
+freely available. You cannot remove this
+copyright and notice. You cannot distribute
+modified versions of the source code in this
+package. You cannot use this file in printed
+media without the express permission of the
+author. Bruce Eckel makes no representation about
+the suitability of this software for any purpose.
+It is provided "as is" without express or implied
+warranty of any kind, including any implied
+warranty of merchantability, fitness for a
+particular purpose or non-infringement. The entire
+risk as to the quality and performance of the
+software is with you. Bruce Eckel and the
+publisher shall not be liable for any damages
+suffered by you or any third party as a result of
+using or distributing software. In no event will
+Bruce Eckel or the publisher be liable for any
+lost revenue, profit, or data, or for direct,
+indirect, special, consequential, incidental, or
+punitive damages, however caused and regardless of
+the theory of liability, arising out of the use of
+or inability to use software, even if Bruce Eckel
+and the publisher have been advised of the
+possibility of such damages. Should the software
+prove defective, you assume the cost of all
+necessary servicing, repair, or correction. If you
+think you've found an error, please submit the
+correction using the form you will find at
+www.BruceEckel.com. (Please use the same
+form for non-code errors found in the book.)
+///:~
+\end{Verbatim}
+
+只要每個原始碼檔案依舊保有上述版權宣告，\marginpar{\fbox{22}}
+你便可以在自己的專案中或課堂上，或是你的簡報材料中，使用這些程式碼。
+
+\subsection{撰碼標準(Coding standards)}
+本書內文中，識別字(identifiers，包括函式、變數、類別等名稱)皆以粗體表示。
+大多數關鍵字亦以粗體表示，但是頻繁出現的關鍵字(例如 class)就不如此，
+以免令人生厭。
+
+我在本書範例中採用特定的撰碼風格(coding style)。此風格依循Sun 在
+(幾乎)所有程式碼中的風格 - 你可以從其網站
+(java.sun.com/docs/codeconv/index.html)上找到。此風格似乎也被大多數
+Java 開發環境支援。如果你已讀過我的其他著作，你可能會注意到，
+Sun 的撰碼風格和我一致 - 這讓我滿心歡喜，雖然我沒有為此做任何事。
+至於程式碼格式 (formatting style)，這個主題適合花好幾個鐘頭來辯論，
+所以我不打算透過我的作法來規範所謂的正確性；我對於我所採用的風格，
+有一些自己的想法。由於 Java 是一種自由格式
+(free-form)的語言，所以你大可使用任何讓你感到自在的風格，無妨。
+
+本書程式碼，都直接來自編譯過的檔案，透過文字處理器，以文字形式呈現。
+因此這些程式碼應該都能正常運作，不致於出現編譯錯誤。所有會導致編譯錯誤的錯誤，
+皆以註解符號(//!)標記起來。因此你可以輕易發現它們，並以自動化方式檢測它們。
+如果你發現程式碼有錯並回報給作者，我會把你的大名列於將被傳佈出去的原始程式碼中，
+並列名於再版書冊中以及 www.BruceEckel.com 網站上。
+\section{Java 版本}
+當我要判斷某一行程式碼是否正確時，我通常依據Sun 的Java 產品(編譯器)來裁量。
+Sun 依序推出了三個Java 主要版本：1.0, 1.1, 2。關於最後一項，雖然
+Sun 推出的 JDK 仍然採用1.2, 1.3, 1.4 的編號，但一般都統稱為版本2)。
+版本\marginpar{\fbox{23}}
+2 似乎將Java 帶上了黃金時期，尤其是使用者介面工具被格外重視的此刻。
+本書集中火力探討Java 2，並以它來進行測試 - 雖然有時候我得做些讓步，
+俾使程式碼得以在 Linux 上編譯 - 透過從Linux 取得的JDK。
+
+如果你曾學習過 Java 語言的較早版本，而其內容未被本書涵蓋，那麼，
+本書第一版仍可自www.BruceEckel.com 免費下載，並且也附於本書光碟。
+
+還有一件事請注意，當我需要提及較早版本時，我不會提及次修正版號。
+本書之中我只會採用Java 1.0, Java 1.1, Java 2 等版本號碼。
+\section{研討課程與顧問指導}
+我的公司提供五天時程的公開訓練課程，以親手實踐的形式進行，依據的材料即為本書。
+課堂所授內容，是書中每一個章節挑選出來的材料。每堂課之後都有指導時段和練習時段，
+讓每位學員都能夠得到個別的照料。簡介性的課程，
+其錄音教材和投影片都已置於書附光碟中，你不需要長途跋涉，也不需要花費金錢，
+就可以獲得些許研討經驗。如果想獲得更多資訊，請上 www.BruceEckel.com 網站。
+
+我的公司也提供諮詢、顧問指導、演練服務，藉以引導你的專案計畫順利走過開發週期 -
+特別是面對公司的第一個 Java 專案時。
+\section{關於錯誤}
+不論作者有多少秘訣可以找出錯誤，總是會有一些錯誤蔓延出來，而且對讀者造成困擾。
+
+本書的HTML 版(可自書附光碟取得，也可自www.BruceEckel.com 下載)
+的每一章啟始處，都有一個鏈結，可連結到「錯誤提報功能」。當然，
+網站上的本書相關網頁也有這個功能。如果你發現任何錯誤，請使用此一表單提報給我，
+並請附上你的修正建議。如有必要，也請附上原本的原始碼，並標註你的任何修正建議。
+我將對你的幫助致以無上的感激。
+
+\section{封面故事}\marginpar{\fbox{24}}
+《Thinking in Java》的封面靈感，來自於美國的 Arts \& Crafts 運動。
+這個運動約略始於二十世紀初，並於 1900~1920 達到巔峰。它發源於英格蘭，
+是對工業革命所帶來的機器生產及維多利亞時期繁複裝飾風格的排拒。
+Arts \& Crafts 強調簡約設計、自然形式、純手工打造、以及獨立工匠的重要性。
+它極力避免使用現代化工具。這和今天我們所面對的種種情境有著許多類似：
+世紀之交、從「電腦革命的濫觴」到「對個人更完備更具意義」的演化過程、
+對軟體技巧(而非只是製造程式碼)的強調。
+
+我以同樣的態度來看待 Java：一種力量，試圖將程式員從作業系統的技工層次提升出來，
+朝向「軟體工藝師」的目標前進。
+
+本書作者和封面設計者是童年好友，我們都從這個運動中獲得靈感，
+也都擁有各種起源於此一時期(或受其啟發)的各種家具、燈具、種種器物。
+
+本書封面的另一個用意代表著，博物學家所可能展示的昆蟲標本收集盒。
+這些昆蟲本身都是物件，都被置於「盒子」這樣的物件中。盒子又被置於「封面」
+這樣的物件中。這說明了物件導向程式設計極為基礎的「集成 (aggregation)」概念。
+當然，程式員可能從中得不到任何助益，卻聯想到所謂的程式臭蟲 (bugs)。
+這些臭蟲被捕捉，然後在樣本罐中被殺掉， 最後被固定於小小的展示盒中。
+這或許可以類比為：Java 有能力搜尋、顯示、制服臭蟲。這也是
+Java 極具威力之眾多特性中的一個。
+
+
+\section{致謝(Acknowledgements)}\marginpar{\fbox{25}}
+我首先要感謝所有和我一起教授課程、一起進行諮詢、一起發展教學計畫的夥伴們：
+Andrea Provaglio、Dave Bartlett(他對第15 章有卓越的貢獻)、Bill Venners、
+Larry O'Brien。當我嘗試持續為那些和我們一樣團隊工作的其他群眾們發展最佳模式時，
+你們所展現的耐心使我銘感五內。我也要謝謝 Rolf Andre Klaedtke(瑞士)；
+Martin Vlcek、Martin Byer、 Vlada、Pavel Lahoda、Martin the Bear 以及 Hanka
+(布拉格)；還有 Marco Cantu(義大利)，他在我第一次策劃歐洲研討課程時，
+和我共同達成了任務。
+
+我也要謝謝 Doyle Street Cohousing Community 在我撰寫本書第一版的兩年內，
+對我多有容忍。非常感謝 Kevin 和 Sonda Donovan，在我撰寫本書第一版的暑假期間，
+將他們最豪華的 Crested Butte 租給我使用。我同時要感謝 Crested Butte 及
+Rocky Mountain Biological Laboratory 的眾多友善居民們，讓我有賓至如歸的感覺。
+我還要謝謝 Moore Literacy Agency 的 Claudette Moore，
+因為她的無比耐性和堅忍不拔的毅力，我才得到了我想要的完美效果。
+
+我的前兩本書在 Prentice-Hall 出版時， Jeff Pepper 是我的編輯。Jeff
+總是在正確的時機和正確的地點出現，清除所有障礙，並做了所有正確的事，
+成就此次極為愉悅的出版經驗。謝謝Jeff，這對我來說意義深遠。
+
+我還要特別感謝 Gen Kiyooka，以及他的公司Digigami。前幾年我置放各種素材所需的
+Web 伺服器，都由他熱心提供。這是無價的援助。
+
+我也要謝謝 Cay Horstmann(《Core Java》作者之一，Prentice-Hall, 2000)、
+D'Arcy Smith ( Symantec )、Paul Tyma ( 《Java Primer Plus》
+作者之一，The Waite Group, 1996)，他們對我在Java 語言觀念上的釐清，
+提供了莫大的幫助。
+
+\marginpar{\fbox{26}}
+我也要謝謝那些曾經在軟體開發研討會( Software Development Conference)
+上由我主持的Java 專題上發言的人們，以及那些在研討班上提問，
+使我得以參考並使教材更清楚的學生們。
+
+特別感謝Larry 和Tian O'Brien，你們將我的研討課程轉製為《Hands-On Java》光碟。
+
+將修正意見回饋給我的好心人們，你們的幫助使我受惠匪淺。第一版特別要感謝的是：
+Kevin Raulerson(找出了成堆的臭蟲)、Bob Resendes(簡直太了不起了)、John Pinto、
+Joe Dante、Joe Sharp(三位都優秀得令人難以置信)、David Combs
+(訂正了許多文法和說明)、Dr. Robert Stephenson、John Cook、Franklin Chen、
+Zev Griner、David Karr、 Leander A. Stroschein、Steve Clark、Charles A. Lee、
+Austin Maher、 Dennis P. Roth、Roque Oliveira、Douglas Dunn、Dejan Ristic、
+Neil Galarneau、David B. Malkovsky、Steve Wilkinson、還有許許多多人，
+此處實難備載。本書第一版在歐洲發行時，Ir. Marc Meurrens
+教授在電子版的宣傳與製作上做了十分卓絕的努力。
+
+在我生命中，有許多技術出眾的人們變成了我的朋友。
+在他們所做的瑜珈及其他形式的精神鍛練上，我得到了十分特別的靈感與引導。這些朋友是
+Kraig Brockschmidt、 Gen Kiyooka、 Andrea Provaglio(在義大利，
+他協助我以更一般化的角度來理解Java 和程式設計。現在的他是美國
+MindView 團隊中的一員)。
+
+對Delphi 的理解也幫助我認識Java，這一點不值得驚訝。
+因為語言設計上的許多概念和決定都是共通的。
+我的 Delphi 朋友們協助我洞察神秘的程式開發環境。這些朋友是
+Marco Cantu(另一位義大利朋友，或許正沉浸在拉丁語帶來的程式語言靈光之中)、
+Neil Rubenking(他在發現電腦的奧妙之前，經歷過瑜珈、素食、禪修)，當然還有
+Zack Urlocker，和我一同旅行世界的長期夥伴。
+
+我的朋友 Richard Hale Shaw 的卓越洞見和支援，都帶給我無上的幫助
+(Kim 也是)。Richard 和我花了數個月的時光一起教授研討課，
+一起試著找出對聽眾而言最完美的學習經驗。在此我也要謝謝
+KoAnn Vikoren、\marginpar{\fbox{27}} Eric Faurot、Marco Pardi、以及
+MFI 的其他工作夥伴。格外謝謝 Tara Arrowood，重新啟發了我對研討會的可行性想法。
+
+本書設計、封面設計、封面圖像，皆出自於我的朋友Daniel Will-Harris，
+他是一位相當著名的作家和設計家(www.Will-Harris.com)。在電腦和桌上出版發明之前，
+他就已經在國中時期玩過所謂的 rub-on letters，並且抱怨我的代數含糊不清。
+不過我現在已經能夠自己完成出版頁稿了，所以排版上的所有問題都應該算我頭上。
+我使用 Microsoft Word 97 for Windows 撰寫本書，並使用
+Adobe Acrobat 製作出版頁稿；本書直接以 Acrobat PDF 檔案製作。
+我兩次在海外完成本書定稿，第一版在南非開普敦，第二版在布拉格。
+這是電子時代的明證。我所使用的主要字體是 Georgia，標題採用 Verdana。封面字體是
+ITC Rennie Mackintosh。
+
+我也要對製造編譯器的廠商致上謝意：Borland、Linux 的Blackdown 團隊、
+以及絕對不能不提的 Sun。
+
+我的所有老師、所有學生(也可視為我的老師)都應該接受我的特別謝意。
+最有趣的寫作老師是 Gabrielle Rico(《Writing the Natural Way》
+一書作者，Putnam, 1983)。我對於Esalen 所發生的那了不起的一週永銘於心。
+
+提供支援的朋友們還包括( 恐有遺漏) ： Andrew Binstock 、Steve
+Sinofsky、JD Hildebrandt、Tom Keffer、Brian McElhinney、Brinkley
+Barr、Bill Gates (Midnight Engineering Magazine)、Larry Constantine
+和Lucy Lockwood、Greg Perry、Dan Putterman、Christi Westphal、
+Gene Wang、Dave Mayer、David Intersimone、Andrea Rosenfield、
+Claire Sawyers、以及眾多的義大利朋友(Laura Fallai、Corrado、Ilsa、
+Cristina Giustozzi ) 、Chris 和Laura Strand、 the Almquists、 Brad
+Jerbic、Marilyn Cvitanic、the Mabrys、the Haflingers、the Pollocks、
+Peter Vinci 、the Robbins Families 、the Moelter Families ( 和the
+McMillans ) 、Michael Wilk 、Dave Stoner 、Laurie Adams 、the
+Cranstons、Larry Fogg、Mike 和Karen Sequeira、Gary Entsminger 和
+Allison Brody、Kevin Donovan 和
+Sonda Eastlack、Chester 和 Shannon\marginpar{\fbox{28}}
+Andersen 、Joe Lordi 、Dave 和Brenda Bartlett 、David Lee 、the
+Rentschlers、the Sudeks、Dick、Patty、Lee Eckel、Lynn 和
+Todd 和其家族成員。當然，還有我摯愛的爸媽。
+
+\subsection{Internet 上的貢獻者}
+謝謝這些助我改用Swing 程式庫撰寫範例並提供其他協助的人們：Jon
+Shvarts 、Thomas Kirsch 、Rahim Adatia 、Rajesh Jain 、Ravi
+Manthena、Banu Rajamani、Jens Brandt、Nitin Shivaram、Malcolm
+Davis，以及所有曾經提供協助的人們。你們真的幫助我開展了這個計畫。

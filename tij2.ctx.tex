@@ -1,0 +1,59 @@
+\input cinput.tex    \documentclass[12pt,a4paper]{book}
+
+\usepackage[dvips]{hyperref}
+
+
+\renewcommand{\contentsname}{{\MbQ\cH241}\z{\MjQ\cH147}}
+\renewcommand{\tablename}{{\McQ\cH91}}
+\renewcommand{\figurename}{{\MaQ\cH199}}
+\renewcommand{\listtablename}{{\McQ\cH91}\z{\MbQ\cH143}\z{\MbQ\cH241}\z{\MjQ\cH147}}
+\renewcommand{\listfigurename}{{\MaQ\cH199}\z{\MbQ\cH241}\z{\MjQ\cH147}}
+
+%\ctxfdef{\chapter}{\CTXFM}{\CTXFR}
+%\ctxfdef{\section}{\CTXFM}{\CTXFR}
+%\ctxfdef{\subsection}{\CTXFM}{\CTXFR}
+%\ctxfdef{\subsubsection}{\CTXFM}{\CTXFR}
+
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage[sf]{titlesec}
+%\ctxfdef{\chapter}[\CTXFM]{\CTXFM}
+\titleformat{\chapter}[display]{\LARGE\sf}{{\McQ\cH15}\ \thechapter\ {\McQ\cH14}}{0.2cm}{}
+
+% 照列原文
+\usepackage{fancyvrb}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{{\McQ\cH15}\ \thechapter\ {\McQ\cH14}\ #1}{}}
+\renewcommand{\sectionmark}[1]%
+{\markright{\thesection~ #1}}
+
+\fancyhf{}
+\fancyhead[LE]{\leftmark}
+\fancyhead[RO]{\rightmark}
+\fancyfoot[CE,EO]{Thinking in Java}
+\fancyfoot[RE,LO]{www.BruceEckel.com}
+\fancyfoot[LE,RO]{\thepage}
+\renewcommand{\footrulewidth}{0.4pt}
+
+
+\fancypagestyle{plain}{%
+\fancyhf{} % clear all header and footer fields
+\fancyfoot[RO]{\thepage}
+\fancyfoot[LE]{\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}}
+
+\begin{document}
+\frontmatter
+\tableofcontents
+\listoftables
+\listoffigures
+\include{preface}
+%\addcontentsline{toc}{section}{第二版序}
+\include{intro}
+\mainmatter
+%\addcontentsline{toc}{chapter}{序言}
+\include{intro_obj}
+\include{object}
+\end{document}
